@@ -1,38 +1,107 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2 {
+  font-family: 'PT Sans', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  font-size:4rem;
+  color: #00214C;
+  font-weight: 700 !important;
+
+}
+h2 {
+  font-size:3rem;
+  color: #00214C;
+  font-weight: 700 !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+p {
+  font-size: 1.15rem;
+   font-family: Montserrat, sans-serif;
+}
+
+p, div {
+  font-family: 'Roboto', sans-serif;
+}
+
+.home-section {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap-reverse;
+  margin: 3rem;
 }
 
-.App-link {
-  color: #61dafb;
+.home-section div {
+  width: 50%;
+  padding: 4rem;
+  margin: auto;
+  color: #4D6382; 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.home-section div p {
+  margin-top: 2rem;
+}
+
+.featured-category {
+  text-align: center;
+  background-color: #F4F8FD;
+  padding: 2rem;
+}
+.featured-category p {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 10px;
+}
+
+
+/* 
+*
+* Media querries and responsiveness
+*
+* */
+
+@media screen and (max-width: 500px) {
+  /* Header reset */
+  .nav {
+    display: block !important;
   }
-  to {
-    transform: rotate(360deg);
+  .nav .logo {
+    text-align: center;
+  }
+
+  .nav div {
+    width: 100% !important;
+  }
+  .nav ul {
+    /* display: block !important; */
+    width: 100% !important;
+    padding: 20px;
+    text-align: center;
+    border: 1px 0 1px 0 solid #000;
   }
 }
+
+legend {
+  font-size: inherit;
+  line-height: 30px;
+  font-weight: 600;
+  display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin-bottom: .5rem;
+    font-size: 1.5rem;
+    line-height: inherit;
+    color: inherit;
+    white-space: normal;	
+    margin-top: -34px;
+    background-color: #fff;
+}
+
+fieldset {
+  margin: 4rem 1rem !important;
+}
+
