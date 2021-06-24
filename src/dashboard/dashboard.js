@@ -57,6 +57,9 @@ export const Dashboard =()=> {
                             <li className="">
                             <Link className="text-white" to="/dashboard/categories">Categories</Link>
                             </li>
+                            <li className="">
+                            <Link className="text-white" to="/dashboard/stores">Store</Link>
+                            </li>
                         </ul>
                         
                     </div>

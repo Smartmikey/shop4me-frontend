@@ -8,6 +8,7 @@ import { Register } from "./pages/register";
 import { NotFound } from "./pages/notfound";
 import { Dashboard } from "./dashboard/dashboard";
 import { Account } from "./Account/Account";
+import Support from "./pages/support";
 
 const App =()=>{
   return (
@@ -20,6 +21,8 @@ const App =()=>{
         <Route path="/register" component={ Register } />
         <Route path="/dashboard" component={ Dashboard } />
         <Route path="/account" component={ Account } />
+        <Route path="/support" component={Support} />
+
         <Route component={NotFound} />
       </Switch>
     </>

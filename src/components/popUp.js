@@ -5,7 +5,7 @@ export const PopUp = (props)=>{
         <>
             <PopUpStyle>
                 
-                <div class="position-absolute top-50 start-50 translate-middle rounded shadow p-3">
+                <div class="position-absolute top-50 start-50 top-div translate-middle rounded p-3">
                      <div className=" text-right w-100">
                          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={()=>props.close()}></button>
                     </div>
@@ -21,7 +21,7 @@ export const PopUp = (props)=>{
 
 const PopUpStyle = styled.section`
     position: fixed;
-    background: #0009;
+    // background: #0009;
     height: 100vh;
     width: 100vw;
     top: 0;
@@ -29,7 +29,9 @@ const PopUpStyle = styled.section`
     h1 {
         color: green;
     }
-
+    .top-div{
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.6)!important;
+    }
     div {
         width: 40%;
         min-height: 35%;
@@ -37,7 +39,9 @@ const PopUpStyle = styled.section`
         margin: auto auto;
         
     }
-
+    body {
+        overflow: hidden;
+    }
     .modal-icon {
         color: green;
     }

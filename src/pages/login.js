@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client"
 import { useState } from "react"
-import { LOGIN } from "../query"
+import { LOGIN, VERIFYUSER } from "../query"
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
 import { SubmitButton } from "../components/styled";
@@ -9,6 +9,7 @@ export const Login =()=> {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [user, setUser] = useState('')
     const [cookie, setCookie, removeCookie] = useCookies('')
 
     const options = {
@@ -18,22 +19,37 @@ export const Login =()=> {
     const [login, {called, loading, error,data}] = useLazyQuery(LOGIN, {
         variables: {email, password}, 
         onCompleted: (d) => {
+            verify({variables: {token: data.login.token}})
+
             completedFunction(d)
         },
         onError: (err) => {
             console.log(err);
         }
     })
+    const [verify] = useLazyQuery(VERIFYUSER ,  {onCompleted: (data)=> {
+        setUser(data.verifyUser)
+      
+    },
+    onError: (err) => {
+        console.log(err);
+    },
+    })
 
-    console.log("email on state: ", email);
 
     if(loading) <h4>Loading...</h4>
     if(error) <h4>somtething went wrong</h4>
+
+
     const completedFunction = (data) =>{
-        if(data) {
+        if(data ){
+            if(cookie == "token"){
+                removeCookie("token")
+            };
             setCookie("token", data.login.token, {expires: new Date(Date.now() + 900000000)})
-            window.location.href = "/dashboard"
+                        
         }
+
     }
     const handleSubmit = e =>{
         e.preventDefault()
@@ -47,7 +63,8 @@ export const Login =()=> {
         setEmail('')
         setPassword('')
     }
-
+    // cookie && cookie.token &&  cookie.token != "undefined" && cookie.token.length > 0 ?
+      data && user && user.role == "admin" ? window.location.href = "/dashboard" : user.role == "user" ? window.location.href = "/account" :  console.log(user.role);
     
     return (
         

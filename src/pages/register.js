@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { HeroSection } from '../components/hero'
-import { Button } from "../components/styled";
+import { SubmitButton } from "../components/styled";
 import { REGISTER } from '../mutation';
 
 
@@ -78,7 +78,7 @@ export const Register =()=> {
                     
                         <div className="text-center">
 
-                            <input value="Register" type="submit" />
+                            <SubmitButton text="Register" />
                         </div>
                 </form>
             </section>

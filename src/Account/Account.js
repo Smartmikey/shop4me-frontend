@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import UserAccount from "./User";
+import UserProfile from "./profile";
+import Support  from "../pages/support";
 
 
 
@@ -45,14 +47,12 @@ export const Account =()=> {
                             <Link className="text-white" to="/account/">Account</Link>
                             </li>
                             <li className="">
-                            <Link className="text-white" to="/account/orders">Orders</Link>
+                            <Link className="text-white" to="/account/profile">Update Profile</Link>
                             </li>
                             <li className="">
-                            <Link className="text-white" to="/account/users">users</Link>
+                            <Link className="text-white" to="./support">Support</Link>
                             </li>
-                            <li className="">
-                            <Link className="text-white" to="/account/categories">Categories</Link>
-                            </li>
+                            
                         </ul>
                         
                     </div>
@@ -63,6 +63,8 @@ export const Account =()=> {
                     <section className="p-5"> 
                         <Switch>
                             
+                            <Route path="/account/profile" component={UserProfile} />
+                            <Route path="/profile" component={Support} />
                             <Route path="/" component={UserAccount} />
                             
                             

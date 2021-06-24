@@ -7,31 +7,18 @@ import { useEffect } from "react";
 
 export const NotLoggedIn =()=> {
 
-    const [cookie, setCookie, removeCookie] = useCookies("token")
+    const [cookie, removeCookie] = useCookies("token")
     const [user, setUser] = useState('')
 
-    const [verify, {called, error, data}] = useLazyQuery(VERIFYUSER, {variables: {token: cookie.token}, onCompleted: ()=> setUser(data.verifyUser)})
-
-    
-    // if(called){
-        console.log("called value: ",called);
-    // }
+    const [verify, {called, data}] = useLazyQuery(VERIFYUSER, {variables: {token: cookie.token}, onCompleted: (data)=> setUser(data.verifyUser)})
 
     let rememberUser =()=>{
         if(cookie.length !=0){
             verify()
         }
     }
-    // if(data){
-    // }
-    // cookie && cookie.token ? setUser(data): setUser('') 
-    // console.log(cookie)
-    let verifiedUser=()=> {
-        console.log(data);
-    }
-
+   
     const logout = ()=> {
-        // alert("clicked")
         removeCookie("token")
         window.location.href = "/"
     }
@@ -56,14 +43,14 @@ export const NotLoggedIn =()=> {
                         {
                             data && data.verifyUser && user ? (
                                 <li className="nav-item">
-                                <Link className="nav-link" to="order">Order now</Link>
+                                <Link className="nav-link" to="/order">Order now</Link>
                                 </li>
                             ) : ("")
                         }
 
                         
                         <li className="nav-item">
-                        <Link className="nav-link" to="category">Category</Link>
+                        <Link className="nav-link" to="/category">Category</Link>
                         </li>
                         {
                             data && data.verifyUser && user ? (
@@ -71,10 +58,10 @@ export const NotLoggedIn =()=> {
                             ) : (
                                 <>
                                 <li className="nav-item">
-                                <Link className="nav-link" to="login">Login</Link>
+                                <Link className="nav-link" to="/login">Login</Link>
                                 </li>
                                 <li className="nav-item">
-                                <Link className="nav-link" to="register">Register</Link>
+                                <Link className="nav-link" to="/register">Register</Link>
                                 </li>
                                 </>
                             )
@@ -91,7 +78,7 @@ export const NotLoggedIn =()=> {
                                 (
                                     <div> 
                                         
-                                        <Link to="/dashboard"> Hello Mike</Link>
+                                        <Link to="/dashboard"> {"Hello " + user.username || "Hello Admin"}</Link>
                                         <Link className="mx-4 text-secondary" to="#" onClick={()=>logout()}> Logout</Link>
                                     </div>
                                 ) 
@@ -99,7 +86,7 @@ export const NotLoggedIn =()=> {
                                 (
                                     <div> 
                                         
-                                        <Link to="/account"> Hello User</Link>
+                                        <Link to="/account"> {"Hello " + user.username || "Hello User"}</Link>
                                         <Link className="mx-4 text-secondary" to="#" onClick={()=>logout()}> Logout</Link>
                                     </div>
                                 ) 

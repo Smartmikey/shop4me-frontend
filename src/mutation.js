@@ -21,6 +21,28 @@ export const UploadUserImage = gql`
     } 
 `
 
+export const UPDATE_USER_DETAILS = gql`
+    mutation updateDetails($userId: String!, $fName: String, $lName: String, $dob: String, $address: String,
+        $city: String, $state: String, $nearestBusStop: String
+    ) {
+    updateUserDetails(userId: $userId, options: {
+        firstName: $fName,
+        lastName: $lName,
+        dob: $dob,
+        address: $address,
+        city: $city,
+        state: $state,
+        nearestBusStop: $nearestBusStop
+    }){
+            id
+        firstName
+        lastName
+        country
+        state
+    }
+    }
+`
+
 export const CREATEORDER = gql`
     mutation createOrder($name: String!, $desc: String!, $price: Float!, $url: String!, $imageUrl: String!  ){
         createOrder(options: {
