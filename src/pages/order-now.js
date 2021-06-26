@@ -12,8 +12,8 @@ export const Order =()=> {
     const[url, setUrl] = useState("")
     const[desc, setDesc] = useState("")
     const[price, setPrice] = useState("")
+    const[date, setDate] = useState("")
     const[imageUrl, setImageUrl] = useState("")
-
     const [imageName, setImageName] = useState("")
     const [popUp, setPopUp] = useState(false)
     const successIcon = <i className=" fs-1 far fa-check-circle"></i>
@@ -25,7 +25,11 @@ export const Order =()=> {
         setPrice("")
         setImageUrl("")
     }
-    const [createOrder, {error, loading, data}] = useMutation(CREATEORDER, {variables: {name, url,desc, price: parseFloat(price), imageUrl},
+    useEffect(()=> {
+        setDate(new Date(Date.now()).toUTCString())
+    })
+
+    const [createOrder, {error, loading, data}] = useMutation(CREATEORDER, {variables: {name, url,desc, price: parseFloat(price), date, imageUrl},
         onCompleted: ()=>{
             setPopUp(true)
             resetForm()

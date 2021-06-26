@@ -44,9 +44,14 @@ export const UPDATE_USER_DETAILS = gql`
 `
 
 export const CREATEORDER = gql`
-    mutation createOrder($name: String!, $desc: String!, $price: Float!, $url: String!, $imageUrl: String!  ){
+    mutation createOrder($name: String!, $date: String!, $desc: String!, $price: Float!, $url: String!, $imageUrl: String!  ){
         createOrder(options: {
-            name: $name, desc: $desc, price: $price, url:$url, imageUrl: $imageUrl
+            name: $name, 
+            desc: $desc, 
+            date: $date, 
+            price: $price, 
+            url:$url, 
+            imageUrl: $imageUrl
         } ){
             id
             name
@@ -59,49 +64,45 @@ export const CREATEORDER = gql`
         }
     }
 `
-// export const REGISTER = gql`
-//     mutation Register(
-//             $username: String!,
-//             $email: String!,
-//             $password: String!,
-//             $title: String, 
-//             $Stitle: String,
-//             $address: String, 
-//             $Saddress: String, 
-//             $fName: String, 
-//             $lName: String ,
-//             $county:String ,
-//             $country:String ,
-//             $phone:String ,
-//             $SfName:String ,
-//             $SlName:String ,
-//             $Scounty:String ,
-//             $Scountry:String ,
-//             $Sphone: String,
-                
-//     ){
-//         createUser(userInput: {
-//             username: $username,
-//             email: $email,
-//             password: $password,
-//             title:    $title, 
-//             Stitle: $Stitle, 
-//             address: $address, 
-//             Saddress: $Saddress, 
-//             fName: $fName, 
-//             lName: $lName ,
-//             county: $county ,
-//             country: $country,
-//             phone: $phone,
-//             Sfname: $SfName, 
-//             SlName: $SlName ,
-//             Scounty: $Scounty ,
-//             Scountry: $Scountry ,
-//             Sphone: $Sphone,
-//         }){
-//             id
-//             username
-//             email
-//         }
-//     }
-// `
+export const UPDATE_ORDER = gql`
+    mutation updateOrder($orderId: String!, $shippingFee: Float, $weight: Float, $status: String) {
+  updateOrder(orderId: $orderId, options: {
+    shippingFee: $shippingFee,
+    weight: $weight,
+    status: $status
+  }){
+    id
+    name
+    shippingFee
+    weight
+  }
+}
+`
+
+export const DELETE_ORDER = gql`
+    mutation deleteOrder($id: String!) {
+    deleteOrder(id: $id){
+        message
+    }
+}
+`
+
+export const CREATE_CATEGORY = gql`
+    mutation createCategory($name: String!){
+        createCategory(options: {
+            name: $name
+        }){
+            id
+            name
+        }
+    }
+`
+
+export const DELETE_CATEGORY = gql`
+    mutation deleteCategory($id: String!) {
+  deleteCategory (id: $id){
+    message
+  }
+}
+
+`

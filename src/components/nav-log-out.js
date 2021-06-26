@@ -10,7 +10,7 @@ export const NotLoggedIn =()=> {
     const [cookie, removeCookie] = useCookies("token")
     const [user, setUser] = useState('')
 
-    const [verify, {called, data}] = useLazyQuery(VERIFYUSER, {variables: {token: cookie.token}, onCompleted: (data)=> setUser(data.verifyUser)})
+    const [verify, {called, data}] = useLazyQuery(VERIFYUSER, {variables: {token: cookie.token}, onCompleted: (data)=> setUser(data.verifyUser), onError: (err)=> console.log(err)})
 
     let rememberUser =()=>{
         if(cookie.length !=0){

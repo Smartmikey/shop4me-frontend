@@ -65,7 +65,7 @@ export const Account =()=> {
                             
                             <Route path="/account/profile" component={UserProfile} />
                             <Route path="/profile" component={Support} />
-                            <Route path="/" component={UserAccount} />
+                            <Route path="/account/" component={UserAccount} />
                             
                             
                         </Switch>

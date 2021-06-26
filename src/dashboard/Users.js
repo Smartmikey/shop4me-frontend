@@ -16,7 +16,8 @@ export const Users =()=>{
     
     return (
         <div className="container">
-            
+            <h2 className="mx-auto my-2">Users</h2>
+
             <table className="table">
                 <thead>
                     <tr>

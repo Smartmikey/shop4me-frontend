@@ -8,6 +8,9 @@ import { Dash } from "./dash";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import { Categories } from "./Categories";
+import OrderDetails from "./orderDetials";
+import AdminProfile from "./profile";
+import { Store } from "./store";
 
 
 
@@ -45,20 +48,23 @@ export const Dashboard =()=> {
                             <li className="">
                             <a className="text-white" href="/">Home</a>
                             </li>
-                            <li className="">
+                            <li >
                             <Link className="text-white" to="/dashboard/">Dashboard</Link>
                             </li>
-                            <li className="">
+                            <li >
                             <Link className="text-white" to="/dashboard/orders">Orders</Link>
                             </li>
-                            <li className="">
+                            <li >
                             <Link className="text-white" to="/dashboard/users">users</Link>
                             </li>
-                            <li className="">
+                            <li >
                             <Link className="text-white" to="/dashboard/categories">Categories</Link>
                             </li>
-                            <li className="">
+                            <li >
                             <Link className="text-white" to="/dashboard/stores">Store</Link>
+                            </li>
+                            <li >
+                            <Link className="text-white" to="/dashboard/profile">Profile</Link>
                             </li>
                         </ul>
                         
@@ -79,8 +85,11 @@ export const Dashboard =()=> {
                     <section className="p-5"> 
                         <Switch>
                             
+                            <Route path="/dashboard/order/:order" component={OrderDetails}/>
                             <Route path="/dashboard/orders" component={Orders} />
+                            <Route path="/dashboard/stores" component={Store} />
                             <Route path="/dashboard/categories" component={Categories} />
+                            <Route path="/dashboard/profile" component={AdminProfile} />
                             <Route path="/dashboard/users" component={Users}/>
                             <Route path="/dashboard/" component={Dash} />
                             

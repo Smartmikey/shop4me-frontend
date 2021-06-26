@@ -83,3 +83,82 @@ export const GETUSER = gql`
     }
 
 `
+
+export const GET_ORDERS = gql`
+    query Orders {
+        getOrders{
+            id
+            name
+            imageUrl
+            status
+            desc
+            weight
+            url
+            price
+            payment
+            userId  {
+                username
+            }
+        }
+    }
+
+`
+export const GET_CATEGORIES = gql`
+    query getCategories {
+        getCategories{
+            id
+            name
+            slug
+            stores {
+            id
+            name
+            url
+            logoUrl
+            }
+        }
+    }
+
+`
+
+export const GET_ORDER = gql`
+    query get_Order($id: String!) {
+  getOrder(id: $id){
+    id
+    name
+    imageUrl
+    price
+    status
+    desc
+    weight
+    url
+    payment
+    shippingFee
+    userId  {
+       email
+       username
+       userDetails{
+            country
+            firstName
+            lastName
+            state
+            city
+            dob
+            address
+            nearestBusStop
+        }
+    }
+  }
+}
+
+`
+
+export const GET_STORE = gql`
+    query getStores {
+        getStores{
+            name
+            logoUrl
+            url
+            id
+        }
+    }
+`
