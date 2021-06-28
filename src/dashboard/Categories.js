@@ -24,7 +24,6 @@ export const Categories =()=>{
         onCompleted: ()=> refetch()
     })
 
-    console.log(error);
     const handleCategoryChange =(e)=> {
         setCategoryName(e.target.value)
     }

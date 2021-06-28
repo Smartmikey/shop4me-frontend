@@ -106,3 +106,39 @@ export const DELETE_CATEGORY = gql`
 }
 
 `
+
+export const CREATE_STORE = gql`
+    mutation createStore($name: String!, $url: String!, $logoUrl: String!, $categoryIds: [String!]!) {
+    createStore(options: {
+        name: $name,
+        url:$url,
+        logoUrl: $logoUrl,
+        categoryIds: $categoryIds
+    }){
+        name
+        url
+    }
+}
+
+`
+export const DELETE_STORE = gql`
+    mutation deleteStore($id: String!) {
+    deleteStore(id: $id){
+        message
+    }
+}
+
+`
+export const UPDATE_STORE = gql`
+mutation updateStore($name: String, $url: String, $logoUrl: String, $categoryIds: String) {
+  updateStore(id: $id, options: {
+    name: $name,
+    url:$url,
+    logoUrl: $logoUrl,
+    categoryIds: $categoryIds
+  }){
+    categoryIds
+  }
+}
+
+`

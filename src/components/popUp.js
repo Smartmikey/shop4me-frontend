@@ -44,7 +44,7 @@ export const UpdateOrderPopUp = (props)=>{
                     </div>
                     <div class="col-md-4">
                         <label for="status" class="form-label">Order Status</label>
-                        <select id="status" class="form-select"  onChange={(e)=> props.data.handleStatusChange(e)} value={props.data.statusCh != ""? props.data.stauseCh : props.data.value.status} >
+                        <select id="status" class="form-select" onChange={(e)=> props.data.handleStatusChange(e)} value={props.data.statusCh != ""? props.data.stauseCh : props.data.value.status} >
                         <option >--Select Order Status--</option>
                         <option value="processing">Processing</option>
                         <option value="completed">Completed</option>
@@ -85,6 +85,133 @@ export const CreateCategoryPopUp = (props)=>{
                     <div class="col-md-12">
                         <label for="catName" class="form-label">Category Name </label>
                         <input type="text" class="form-control" id="catName" onChange={(e)=> props.data.handleCategoryChange(e)} value={props.data.categoryName }  /> 
+                    </div>
+                    
+                    <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Update</Button>
+                </form>
+                </div>
+                
+
+            </UpdateOrderPopUpStyle>
+        </>
+    )
+}
+export const CreateStorePopUp = (props)=>{
+
+    
+    return (
+        <>
+            <UpdateOrderPopUpStyle>
+                
+                <div class="position-absolute top-50 start-30 top-div translate-middle rounded p-3">
+                     <div className=" text-right w-100">
+                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={()=>props.close()}></button>
+                    </div>
+                    <h3 className="text-center text-capitalize fw-bold">  {props.title || "Modal title"}</h3>
+                    <form class="row g-3 my-4 mx-2"
+                        onSubmit={(e)=>{
+                             props.submit(e)
+                             props.close()
+                            }}
+                    >
+                
+                        
+                    <div class="col-md-6">
+                        <label for="storeName" class="form-label">Store Name </label>
+                        <input type="text" class="form-control" id="storeName" onChange={(e)=> props.data.handleNameChange(e)} value={props.data.name }  /> 
+                    </div>
+                    <div class="col-md-6">
+                        <label for="storeLink" class="form-label">Store Link </label>
+                        <input type="text" class="form-control" id="storeLink" onChange={(e)=> props.data.handleUrlChange(e)} value={props.data.url}  /> 
+                    </div>
+                    <div class="col-md-6">
+                        <label for="storeLink" class="form-label">Categories </label>
+                        <select class="form-select" multiple aria-label="multiple select " id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)}>
+                            {props && props.data && props.data.cat.map(e =>{
+                                return (
+                                    <option key={e.id} value={e.id}>{e.name}</option>
+
+                                )
+                            })}
+                        </select>
+                        <small className="m-2">cmd/ctr + click to select multiple</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="storeLogo" class="form-label">Store Logo </label>
+                        <input type="text" class="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)} value={props.data.logoUrl }  /> 
+                    </div>
+                    
+                    <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Create Store</Button>
+                </form>
+                </div>
+                
+
+            </UpdateOrderPopUpStyle>
+        </>
+    )
+}
+
+
+export const UpdateStorePopUp = (props)=>{
+    const totalCat = props.data.cat
+
+    let availableCat = props.data && props.data.SingleStore.getstore && props.data.SingleStore.getstore.categoryIds
+
+    // console.log(" total  Cat: ",totalCat);
+    // console.log(" available  Cat: ",availableCat);
+    let x=0
+    let ischecked = true
+    
+    return (
+        <>
+            <UpdateOrderPopUpStyle>
+                
+                <div class="position-absolute top-50 start-30 top-div translate-middle rounded p-3">
+                     <div className=" text-right w-100">
+                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={()=>props.close()}></button>
+                    </div>
+                    <h3 className="text-center text-capitalize fw-bold">  {props.title || "Modal title"}</h3>
+                    <form class="row g-3 my-4 mx-2"
+                        onSubmit={(e)=>{
+                             props.submit(e)
+                             props.close()
+                            }}
+                    >
+                
+                        
+                    <div class="col-md-6">
+                        <label for="storeName" class="form-label">Store Name </label>
+                        <input type="text" class="form-control" id="storeName" onChange={(e)=> props.data.handleNameChange(e)} value={props.data.name != ""? props.data.name : props.data && props.data.SingleStore && props.data.SingleStore.getstore.name }  /> 
+                    </div>
+                    <div class="col-md-6">
+                        <label for="storeLink" class="form-label">Store Link </label>
+                        <input type="text" class="form-control" id="storeLink" onChange={(e)=> props.data.handleUrlChange(e)} value={props.data.url != ""? props.data.url : props.data && props.data.SingleStore && props.data.SingleStore.getstore.url }  /> 
+                    </div>
+                    <div class="col-md-6">
+                        <label for="storeLink" class="form-label">Categories </label>
+                        <select class="form-select" multiple aria-label="multiple select example" id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)} >
+                            <option></option>
+                            {props && props.data && props.data.cat.map(e =>{
+                                    props.data && props.data.SingleStore.getstore && props.data.SingleStore.getstore.categoryIds.map(f => {
+                                        if(e.id == f.id) {
+                                            ischecked = true //(<option>Hello</option>)//<option key={e.id} selected value={e.id}>{e.name}</option>)
+                                            console.log("checked: ", e.id, "  ---  ", f.id, "selected: ", ischecked);
+                                        }else{
+                                             ischecked = false// return (<option>Hey</option>)//<option key={e.id} value={e.id}>{e.name}</option>)
+                                            //console.log("nothing");
+                                        }
+                                    })
+                                return (
+                                    <option key={e.id} selected={ischecked} value={e.id}>{e.name}</option>
+
+                                )
+                            })}
+                        </select>
+                        <small className="m-2">cmd/ctr + click to select multiple</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="storeLogo" class="form-label">Store Logo </label>
+                        <input type="text" class="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)} value={props.data.logoUrl != ""? props.data.logoUrl : props.data && props.data.SingleStore && props.data.SingleStore.getstore.logoUrl }  /> 
                     </div>
                     
                     <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Update</Button>

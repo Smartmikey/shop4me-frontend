@@ -160,5 +160,24 @@ export const GET_STORE = gql`
             url
             id
         }
+ 
+        getCategories{
+            id
+            name
+        }
     }
+`
+export const GET_SINGLE_STORE = gql`
+    query getStore($id: String!) {
+        getstore(id: $id){
+            id
+            name
+            url
+            logoUrl
+            categoryIds {
+                id
+                name
+            }
+        }
+}
 `

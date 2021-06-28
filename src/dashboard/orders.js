@@ -30,7 +30,7 @@ export const Orders =()=>{
                 </thead>
                 <tbody>
                 {/* {loading ? <span>loading</span> : ""} */}
-
+            
                 {data && data.getOrders && data.getOrders.map(e =>{
                         numbers+=1
                         return(
