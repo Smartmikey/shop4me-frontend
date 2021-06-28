@@ -160,7 +160,7 @@ export const UpdateStorePopUp = (props)=>{
     // console.log(" total  Cat: ",totalCat);
     // console.log(" available  Cat: ",availableCat);
     let x=0
-    let ischecked = true
+    let ischecked;
     
     return (
         <>
@@ -190,17 +190,15 @@ export const UpdateStorePopUp = (props)=>{
                     <div class="col-md-6">
                         <label for="storeLink" class="form-label">Categories </label>
                         <select class="form-select" multiple aria-label="multiple select example" id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)} >
-                            <option></option>
+
+                            {/* collecting selected field and rendering them as selected */}
                             {props && props.data && props.data.cat.map(e =>{
-                                    props.data && props.data.SingleStore.getstore && props.data.SingleStore.getstore.categoryIds.map(f => {
-                                        if(e.id == f.id) {
-                                            ischecked = true //(<option>Hello</option>)//<option key={e.id} selected value={e.id}>{e.name}</option>)
-                                            console.log("checked: ", e.id, "  ---  ", f.id, "selected: ", ischecked);
-                                        }else{
-                                             ischecked = false// return (<option>Hey</option>)//<option key={e.id} value={e.id}>{e.name}</option>)
-                                            //console.log("nothing");
-                                        }
-                                    })
+
+                            ischecked = props.data && props.data.SingleStore.getstore && props.data.SingleStore.getstore.categoryIds
+                            .find(g => {
+                               return g.id == e.id
+                            })
+                                   
                                 return (
                                     <option key={e.id} selected={ischecked} value={e.id}>{e.name}</option>
 

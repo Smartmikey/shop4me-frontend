@@ -15,20 +15,25 @@ export const Store =()=>{
     const [url, setUrl]= useState('')
     const [logoUrl, setLogoUrl]= useState('')
     const [categoryIds, setCategoryIds]= useState([])
+    const [StoreId, setStoreId]= useState("")
+    let [values, setValues] = useState([])
     
+    let selected;
 
-    let values = []
+
     const reset = ()=> {
         setUrl("")
         setName("")
         setLogoUrl("")
+        setStoreId("")
         setCategoryIds([])
-        values = []
+        setValues([])
     }
-    const [single_store] = useLazyQuery(GET_SINGLE_STORE, {
+    const [single_store, ] = useLazyQuery(GET_SINGLE_STORE, {
         onCompleted: (d)=> {
             setSingleStore(d)
-        }
+        }, 
+        fetchPolicy: 'no-cache'
     })
     const [createStore] = useMutation(CREATE_STORE, {variables: {name: name.toLowerCase(), url, logoUrl,categoryIds: values},
         onCompleted: ()=> {
@@ -36,49 +41,57 @@ export const Store =()=>{
             reset()
         }
     })
-    const [updateStore] = useMutation(UPDATE_STORE, {variables: {name: name.toLowerCase(), url, logoUrl,categoryIds: values},
-        onCompleted: ()=> {
-            refetch()
-            reset()
-        }
-    })
-    const [deleteStore] = useMutation(DELETE_STORE, {onCompleted: () => {refetch()}})
-
-
-    let numbers = 0
-    error && console.log(error);
-
-    const close =()=> {
-        setPopUp(false)
+    const [updateStore] = useMutation(UPDATE_STORE, {variables: {id: StoreId, name: name.toLowerCase(), url, logoUrl, categoryIds: values},
+    onCompleted: ()=> {
+        refetch()
+        reset()
     }
+})
+const [deleteStore] = useMutation(DELETE_STORE, {onCompleted: () => refetch()})
+
+
+let numbers = 0
+error && console.log(error);
+
+const close =()=> {
+    setPopUp(false)
+    reset()
+}
+
+const closeUpdate =()=> {
+    setPopUpdate(false)
+    reset()
+}
+
+const handleNameChange =(e)=> {
+    setName(e.target.value)
+} 
+const handleUrlChange =(e)=> {
+    setUrl(e.target.value)
+} 
+const handleLogoUrlChange =(e)=> {
+    setLogoUrl(e.target.value)
+} 
+const handleCategoryIdsChange =(e)=> {
+  
+    selected = document.querySelectorAll('#select-cat-type option:checked');
+    setValues(Array.from(selected).map(el => el.value));
+
     
-    const closeUpdate =()=> {
-        setPopUpdate(false)
-    }
+} 
 
-    const handleNameChange =(e)=> {
-        setName(e.target.value)
-    } 
-    const handleUrlChange =(e)=> {
-        setUrl(e.target.value)
-    } 
-    const handleLogoUrlChange =(e)=> {
-        setLogoUrl(e.target.value)
-    } 
-    const handleCategoryIdsChange =(e)=> {
-        setCategoryIds(e.target.value)
-        values = Array.prototype.slice.call(document.querySelectorAll('#select-cat-type option:checked'),0).map(function(v,i,a) { 
-            return v.value; 
-        });
-        
-    } 
+const handleSubmit = (e)=>{
+    e.preventDefault()
+    createStore()
+}
 
-    const handleSubmit = (e)=>{
-        e.preventDefault()
-        createStore()
-    }
-    return (
-        <>
+const handleUpdateSubmit = (e)=>{
+    e.preventDefault()
+    updateStore()
+}
+console.log(values);
+return (
+    <>
             <section>
                 <div className="row">
                 <h2 className="mx-auto my-2">Stores</h2>
@@ -119,6 +132,7 @@ export const Store =()=>{
                                     }} >Delete</Button>
                                     <Button className="mx-3" variant="outline-primary" onClick={()=> {
                                         single_store({variables: {id: e.id}})
+                                        setStoreId(e.id)
                                         setPopUpdate(true)
                                         
                                         }} >Update</Button>
@@ -168,7 +182,7 @@ export const Store =()=>{
                         SingleStore
                         }} 
                         close={closeUpdate}
-                        submit={handleSubmit}
+                        submit={handleUpdateSubmit}
                         
 
                 /> : ""}

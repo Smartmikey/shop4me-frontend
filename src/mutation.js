@@ -117,6 +117,10 @@ export const CREATE_STORE = gql`
     }){
         name
         url
+        categoryIds{
+            id 
+            name
+        }
     }
 }
 
@@ -130,14 +134,17 @@ export const DELETE_STORE = gql`
 
 `
 export const UPDATE_STORE = gql`
-mutation updateStore($name: String, $url: String, $logoUrl: String, $categoryIds: String) {
+mutation updateStore($id: String!, $name: String, $url: String, $logoUrl: String, $categoryIds: [String!]) {
   updateStore(id: $id, options: {
     name: $name,
     url:$url,
     logoUrl: $logoUrl,
     categoryIds: $categoryIds
   }){
-    categoryIds
+    categoryIds {
+        id
+        name
+    }
   }
 }
 
