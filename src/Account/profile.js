@@ -14,6 +14,7 @@ const UserProfile = () => {
     const [userD, setUserD] = useState('')
     const [fName, setFName] = useState('')
     const [lName, setLName] = useState('')
+    const [phone, setPhone] = useState('')
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
     const [dob, setDob] = useState('')
@@ -50,7 +51,6 @@ const UserProfile = () => {
             <form class="row g-3" 
                 onSubmit={(e)=> {
                     e.preventDefault();
-                    alert("clicked")
                     updateDetails()
                     }} 
             >
@@ -64,6 +64,7 @@ const UserProfile = () => {
                     <label for="lName" class="form-label">Last Name</label>
                     <input type="text" class="form-control" id="lName" onChange={(e)=> setLName(e.target.value)} value={lName !== ""? lName : data && data.verifyUser && data.verifyUser.userDetails.lastName}/>
                 </div>
+                
                 <div class="col-12">
                     <label for="inputAddress" class="form-label">Address</label>
                     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St Apartment, studio, or floor" onChange={(e)=> setAddress(e.target.value)} value={address !== ""? address : data && data.verifyUser && data.verifyUser.userDetails.address} />
@@ -83,6 +84,10 @@ const UserProfile = () => {
                 <div class="col-md-4">
                     <label for="inputCity" class="form-label">City</label>
                     <input type="text" class="form-control" id="inputCity" onChange={(e)=> setCity(e.target.value)} value={city !== ""? city : data && data.verifyUser && data.verifyUser.userDetails.city}/>
+                </div>
+                <div class="col-md-4">
+                    <label for="tel" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="tel"  onChange={(e)=> setPhone(e.target.value)} value={phone !== ""? phone : data && data.verifyUser && data.verifyUser.userDetails.phone} />
                 </div>
                 <div class="col-md-4">
                     <label for="inputState" class="form-label">State</label>

@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap"
+import { Button, Spinner } from "react-bootstrap"
 import styled from "styled-components"
 
 export const PopUp = (props)=>{
@@ -111,7 +111,6 @@ export const CreateStorePopUp = (props)=>{
                     <form class="row g-3 my-4 mx-2"
                         onSubmit={(e)=>{
                              props.submit(e)
-                             props.close()
                             }}
                     >
                 
@@ -138,10 +137,11 @@ export const CreateStorePopUp = (props)=>{
                     </div>
                     <div class="col-md-6">
                         <label for="storeLogo" class="form-label">Store Logo </label>
-                        <input type="text" class="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)} value={props.data.logoUrl }  /> 
+                        <input type="file" class="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)}  /> 
                     </div>
                     
-                    <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Create Store</Button>
+                    {props.data.loading == true ? (
+                                     <Button className="w-25 mx-auto"variant="primary" disabled>   <Spinner as="span" animation="border" size="sm" role="status"  aria-hidden="true"/> </Button>) :<Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Create Store</Button>}
                 </form>
                 </div>
                 
@@ -187,7 +187,7 @@ export const UpdateStorePopUp = (props)=>{
                         <label for="storeLink" class="form-label">Store Link </label>
                         <input type="text" class="form-control" id="storeLink" onChange={(e)=> props.data.handleUrlChange(e)} value={props.data.url != ""? props.data.url : props.data && props.data.SingleStore && props.data.SingleStore.getstore.url }  /> 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="storeLink" class="form-label">Categories </label>
                         <select class="form-select" multiple aria-label="multiple select example" id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)} >
 
@@ -207,10 +207,10 @@ export const UpdateStorePopUp = (props)=>{
                         </select>
                         <small className="m-2">cmd/ctr + click to select multiple</small>
                     </div>
-                    <div class="col-md-6">
+                    {/* <div class="col-md-6">
                         <label for="storeLogo" class="form-label">Store Logo </label>
-                        <input type="text" class="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)} value={props.data.logoUrl != ""? props.data.logoUrl : props.data && props.data.SingleStore && props.data.SingleStore.getstore.logoUrl }  /> 
-                    </div>
+                        <input type="file" class="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)}  /> 
+                    </div> */}
                     
                     <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Update</Button>
                 </form>

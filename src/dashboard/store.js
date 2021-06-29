@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useLazyQuery } from "@apollo/client"
 import { GET_STORE, GET_SINGLE_STORE } from "../query"
-import { Button } from "react-bootstrap";
 import { CreateStorePopUp, UpdateStorePopUp } from "../components/popUp";
 import { CREATE_STORE, DELETE_STORE, UPDATE_STORE } from "../mutation";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 
 export const Store =()=>{
@@ -11,8 +11,10 @@ export const Store =()=>{
     const [popUp, setPopUp]= useState(false)
     const [popUpdate, setPopUpdate]= useState(false)
     const [name, setName]= useState('')
+    const [loading, setLoading]= useState(null)
     const [SingleStore, setSingleStore]= useState('')
     const [url, setUrl]= useState('')
+    const [logo, setLogo]= useState('')
     const [logoUrl, setLogoUrl]= useState('')
     const [categoryIds, setCategoryIds]= useState([])
     const [StoreId, setStoreId]= useState("")
@@ -38,17 +40,39 @@ export const Store =()=>{
     const [createStore] = useMutation(CREATE_STORE, {variables: {name: name.toLowerCase(), url, logoUrl,categoryIds: values},
         onCompleted: ()=> {
             refetch()
+            setLoading(false)
+            close()
             reset()
         }
     })
     const [updateStore] = useMutation(UPDATE_STORE, {variables: {id: StoreId, name: name.toLowerCase(), url, logoUrl, categoryIds: values},
     onCompleted: ()=> {
         refetch()
+        setLoading(false)
         reset()
     }
 })
 const [deleteStore] = useMutation(DELETE_STORE, {onCompleted: () => refetch()})
 
+const uploadImage = () => {
+    const data = new FormData()
+    data.append("file", logo)
+    data.append("upload_preset", "xmawfybc")
+    data.append("cloud_name","smartmikey")
+    data.append("folder","logo")
+    fetch("https://api.cloudinary.com/v1_1/smartmikey/image/upload",{
+    method:"post",
+    // headers: "no-cors",
+    body: data
+    })
+    .then(resp => resp.json())
+    .then(data => {
+    setLogoUrl(data.url)
+    createStore()
+    })
+
+    .catch(err => console.log(err))
+    }
 
 let numbers = 0
 error && console.log(error);
@@ -70,7 +94,7 @@ const handleUrlChange =(e)=> {
     setUrl(e.target.value)
 } 
 const handleLogoUrlChange =(e)=> {
-    setLogoUrl(e.target.value)
+    setLogo(e.target.files[0])
 } 
 const handleCategoryIdsChange =(e)=> {
   
@@ -82,14 +106,16 @@ const handleCategoryIdsChange =(e)=> {
 
 const handleSubmit = (e)=>{
     e.preventDefault()
-    createStore()
+    setLoading(true)
+    uploadImage()
+
 }
 
 const handleUpdateSubmit = (e)=>{
     e.preventDefault()
-    updateStore()
+    setLoading(true)
+    uploadImage()
 }
-console.log(values);
 return (
     <>
             <section>
@@ -119,7 +145,6 @@ return (
                 {data && data.getStores && data.getStores.map(e =>{
                     numbers+=1
                     return(
-                        <>
                             <tr key={e.id}>
                                 <th scope="row">{numbers}</th> 
                                 <td className="text-wrap">{e.name}</td>  
@@ -130,16 +155,15 @@ return (
                                         deleteStore({variables: {id:e.id}})
                                         refetch()
                                     }} >Delete</Button>
-                                    <Button className="mx-3" variant="outline-primary" onClick={()=> {
+                                    <Button className="mx-3" disabled={loading} variant="outline-primary" onClick={()=> {
                                         single_store({variables: {id: e.id}})
                                         setStoreId(e.id)
                                         setPopUpdate(true)
                                         
-                                        }} >Update</Button>
+                                        }} > Update</Button>
 
                                 </td>
                             </tr>
-                        </>
                         )
                     })}  
                    
@@ -159,7 +183,8 @@ return (
                     name,
                     url,
                     logoUrl,
-                    categoryIds
+                    categoryIds,
+                    loading
 
                     }} 
                     close={close}
@@ -179,7 +204,8 @@ return (
                         url,
                         logoUrl,
                         categoryIds,
-                        SingleStore
+                        SingleStore,
+                        loading
                         }} 
                         close={closeUpdate}
                         submit={handleUpdateSubmit}

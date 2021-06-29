@@ -1,25 +1,29 @@
 import { useMutation } from "@apollo/client"
 import { useEffect, useState } from "react"
 import { HeroSection } from "../components/hero"
-import { Button, SubmitButton } from "../components/styled"
+import { SubmitButton } from "../components/styled"
 import { CREATEORDER, UploadUserImage } from "../mutation"
 import Files from "react-butterfiles";
 import { useCookies } from "react-cookie";
 import { PopUp } from "../components/popUp";
+import { Button, Spinner } from "react-bootstrap";
 
 export const Order =()=> {
     const[name, setName] = useState("")
     const[url, setUrl] = useState("")
     const[desc, setDesc] = useState("")
     const[price, setPrice] = useState("")
+    const[loading, setLoading] = useState(null)
     const[date, setDate] = useState("")
     const[imageUrl, setImageUrl] = useState("")
+    const[image, setImage] = useState("")
     const [imageName, setImageName] = useState("")
     const [popUp, setPopUp] = useState(false)
     const successIcon = <i className=" fs-1 far fa-check-circle"></i>
 
     const resetForm = () => {
         setName("")
+        setImageName("")
         setUrl("")
         setDesc("")
         setPrice("")
@@ -29,44 +33,66 @@ export const Order =()=> {
         setDate(new Date(Date.now()).toUTCString())
     })
 
-    const [createOrder, {error, loading, data}] = useMutation(CREATEORDER, {variables: {name, url,desc, price: parseFloat(price), date, imageUrl},
+    const [createOrder, {error, data}] = useMutation(CREATEORDER, {variables: {name, url,desc, price: parseFloat(price), date, imageUrl},
         onCompleted: ()=>{
+            setLoading(false)
             setPopUp(true)
             resetForm()
         }
     })
-    // let handleImage =(e) =>{
-    //     // e.preventDefault
-    //     setImage(e.target.files[0])
-    //     setImageName(e.target.value)
-    //     console.log("image: ",image);
-    //     console.log(error);
-    //     console.log(loading);
+
+    const uploadImage = () => {
+        const data = new FormData()
+        data.append("file", image)
+        data.append("upload_preset", "xmawfybc")
+        data.append("cloud_name","smartmikey")
+        fetch("https://api.cloudinary.com/v1_1/smartmikey/image/upload",{
+        method:"post",
+        body: data
+        })
+        .then(resp => resp.json())
+        .then(data => {
+        setImageUrl(data.url)
+
+        createOrder()
+        })
+
+        .catch(err => console.log(err))
+        }
+        
+    let handleImage =(e) =>{
+        // e.preventDefault
+        setImage(e.target.files[0])
+        setImageName(e.target.value)
+        
         
          
-    //  }
+     }
 
     const closeModal =()=>{
         setPopUp(false)
     }
 
-    console.log(data);
-
     const handleSubmit =(e)=>{
         e.preventDefault()
         
     }
+    console.log(imageUrl);
     return (
         <div>
             <HeroSection title="Order now" text="" bglink="/order now.jpg"/>
             <section className="my-5 container mx-auto" style={{
                 maxWidth: 800 
             }}>
-                <form method="POST" onSubmit={(e)=>{
+                <form method="POST" 
+                onSubmit={(e)=>{
                     e.preventDefault(); 
-                    createOrder() 
+                    setLoading(true)
+                    uploadImage()
                     
-                    }} >
+                    
+                    }} 
+                    >
                         <div className="form-group row">
                             <label htmlFor="website" className="col-sm-4 col-form-label">Website link</label>
                             <div className="col-sm-8">
@@ -95,39 +121,16 @@ export const Order =()=> {
                         <div className="form-group row">
                             <label htmlFor="Image" className="col-sm-4 col-form-label">Product image</label>
                             <div className="col-sm-8">
-                            <input value={imageUrl} onChange={(e)=> setImageUrl(e.target.value)} type="text" name="product image" required className="form-control" id="Price" />
+                            <input value={imageName} onChange={(e)=> handleImage(e)} type="file" name="product image" required className="form-control" id="image" />
+                            {/* <button onClick={uploadImage}>Upload</button> */}
                             </div>
                         </div>
 
-                        {/* <Files
-                            multiple={false} 
-                            maxSize="5mb"
-                            multipleMaxCount={3}
-                            accept={["image/jpg","image/jpeg","image/png"]}
-                            onSuccess={files => handleImage(files)}
-                            onError={errors => console.log(errors)}
-                        > */}
-                            {/* {({ browseFiles, getDropZoneProps, getLabelProps }) => (
-                                <>
-                                    <label {...getLabelProps()}>Product image</label>
-                                    <div {...getDropZoneProps({ className: "myDropZone" })}/>
-                                    <button onClick={browseFiles}>Select files...</button>
-                                    <ol>
-                                        {/* {image.map(file => (
-                                            <li key={file.name}>{file.name}</li>
-                                        ))} */}
-                                        {/* {this.state.errors.map(error => (
-                                            <li key={error.file.name}>
-                                                {error.file.name} - {error.type}
-                                            </li>
-                                        ))} 
-                                    </ol>
-                                </>
-                            )} */}
-                        {/* </Files> */}
+                        
                         <div className="text-center">
 
-                            <SubmitButton text="place order" />
+                        {loading == true ? (<Button variant="primary" disabled>
+    <Spinner as="span" animation="border" size="sm" role="status"  aria-hidden="true"/> </Button>) :  <SubmitButton text= "place order" />}
                         </div>
                         {/* {data ? data : ""} */}
                     </form>

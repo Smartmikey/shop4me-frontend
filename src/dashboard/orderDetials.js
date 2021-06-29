@@ -1,10 +1,12 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { GET_ORDER } from "../query";
+import { GET_ORDER, VERIFYUSER } from "../query";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UpdateOrderPopUp } from "../components/popUp";
 import { DELETE_ORDER, UPDATE_ORDER } from "../mutation";
+import { useCookies } from "react-cookie";
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 
 const OrderDetails = () => {
     const {order} = useParams()
@@ -22,7 +24,14 @@ const OrderDetails = () => {
 const [popUp, setPopUp ]= useState(false)
 const [weightCh, setWeightCh ]= useState(0.0)
 const [statusCh, setStatusCh ]= useState("")
+const [User, setUser ]= useState(null)
 const [shippingCh, setShippingCh ]= useState("")
+const [cookie, setCookie] = useCookies("token")
+
+
+const [verify] = useLazyQuery (VERIFYUSER, {variables: {token: cookie.token}, onError: (err)=> console.log(err), onCompleted: (d)=> {
+    setUser(d.verifyUser)
+}})
 
 const [updateOrderDetails] = useMutation(UPDATE_ORDER, {variables: {orderId: order, status: statusCh, weight: Number(weightCh), shippingFee: Number(shippingCh)},
     onCompleted: ()=> {
@@ -53,18 +62,56 @@ const handleSubmit = (e) => {
 
 }
 
+
+const config = {
+    public_key: process.env.REACT_APP_FLUTTER_PUBLIC_KEY,
+    tx_ref: Date.now(),
+    amount: 100,
+    currency: 'NGN',
+    payment_options: 'card,mobilemoney,ussd',
+    customer: {
+      email: 'user@gmail.com',
+      phonenumber: '07064586146',
+      name: 'joel ugwumadu',
+    },
+    customizations: {
+      title: 'Shope for me order payment',
+      description: 'Payment for items in cart',
+      logo: 'https://smartmikey.com/wp-content/uploads/2020/10/cropped-Smartmikey-letter-head-Recovered.png',
+    },
+  };
+
+  const handleFlutterPayment = useFlutterwave(config);
+
+
 const close =()=> {
     setPopUp(false)
 }
  
+useEffect(()=> {
+    verify()
+},[])
+
+console.log(User);
     return ( 
         <>
-         
+        
+         {
+             User && User.role ? (
+
+             
             <section className="card p-md-4">
                 <div className="row">
-
-                <Button className="w-50 d-inline m-3 col-md-2 col-sm-6" variant={"success"} onClick={()=> setPopUp(true)} >Update Order</Button>
-                <Button className="w-50 d-inline m-3 col-md-2 col-sm-6" variant={"danger"} onClick={()=> deleteOrder()}>Delete Order</Button>
+                {
+                    User && User.role && User.role == "admin" ? (
+                        <>
+                        <Button className="w-50 d-inline m-3 col-md-2 col-sm-6" variant={"success"} onClick={()=> setPopUp(true)} >Update Order</Button>
+                    <Button className="w-50 d-inline m-3 col-md-2 col-sm-6" variant={"danger"} onClick={()=> deleteOrder()}>Delete Order</Button> </>
+                    ) : (
+                        ""
+                    )
+                }
+                
                 </div>
                     <h2 className="mx-auto my-2">Order details</h2>
                 <div className="row">
@@ -116,6 +163,9 @@ const close =()=> {
                         <p > <span className="fw-bolder">Address: </span>{data && data.getOrder.userId.userDetails.address  || ""}</p>
                     </div>
                     <div className="col-md-4">
+                        <p > <span className="fw-bolder">Phone: </span>{data && data.getOrder.userId.userDetails.phone  || ""}</p>
+                    </div>
+                    <div className="col-md-4">
                         <p ><span className="fw-bolder"> Nearest bus stop: </span>{data && data.getOrder.userId.userDetails.nearestBusStop || ""}</p>
                     </div>
                     <div className="col-md-4">
@@ -141,7 +191,25 @@ const close =()=> {
                     submit={handleSubmit}
                     />: ""}
 
+                <Button className="w-25 mx-auto btn-primary"
+                        onClick={() => {
+                        handleFlutterPayment({
+                            callback: (response) => {
+                            console.log(response);
+                                closePaymentModal() // this will close the modal programmatically
+                            },
+                            onClose: () => {},
+                        });
+                        }}
+                    >
+                        Pay Now
+                    </Button>
+                
             </section>
+            ) : (
+                <h3 className="mx-auto"> Unauthorized</h3>
+            )
+        }
         </>
      );
 }

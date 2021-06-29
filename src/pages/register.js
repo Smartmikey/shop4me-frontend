@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { HeroSection } from '../components/hero'
 import { SubmitButton } from "../components/styled";
 import { REGISTER } from '../mutation';
+import { useCookies } from "react-cookie";
+
 
 
 
@@ -10,24 +12,21 @@ export const Register =()=> {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    // const [cpassword, setcPassword] = useState('')
-    // const [title, setTitle] = useState('Default select')
-    // const [fName, setFName] = useState('')
-    // const [lName, setLName] = useState('')
-    // const [address, setAddress] = useState('')
-    // const [county, setCounty] = useState('Default select')
-    // const [country, setCountry] = useState('Nigeria')
-    // const [phone, setPhone] = useState('')
-    // const [Stitle, setSTitle] = useState('Default select')
-    // const [SfName, setSFName] = useState('')
-    // const [SlName, setSLName] = useState('')
-    // const [Saddress, setSAddress] = useState('')
-    // const [Scounty, setSCounty] = useState('Default select')
-    // const [Scountry, setSCountry] = useState('Nigeria')
-    // const [Sphone, setSPhone] = useState('')
+    const [cookie, setCookie, removeCookie] = useCookies('')
 
 
-    const [createUser, {loading, error, data}] = useMutation(REGISTER, {variables: {username, email, password}})
+    const [createUser, {loading, error, data}] = useMutation(REGISTER, {variables: {username, email, password},
+        onCompleted: (d)=> {
+            if(d ){
+                if(cookie == "token"){
+                    removeCookie("token")
+                };
+                console.log(d);
+                setCookie("token", d.createUser.token, {expires: new Date(Date.now() + 900000000)})
+                window.location.href= "/account"          
+            }
+        }
+    })
     if (error) console.error(error)
     if (data) console.log(data)
     if (loading) console.log(loading)

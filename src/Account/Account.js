@@ -8,6 +8,7 @@ import { useCookies } from "react-cookie";
 import UserAccount from "./User";
 import UserProfile from "./profile";
 import Support  from "../pages/support";
+import UserOrderDetails from "./order";
 
 
 
@@ -64,7 +65,7 @@ export const Account =()=> {
                         <Switch>
                             
                             <Route path="/account/profile" component={UserProfile} />
-                            <Route path="/profile" component={Support} />
+                            <Route path="/account/order/:order" component={UserOrderDetails} />
                             <Route path="/account/" component={UserAccount} />
                             
                             

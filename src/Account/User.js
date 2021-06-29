@@ -89,7 +89,7 @@ const UserAccount = () => {
                                 <td>{e.status}</td>
                                 <td>{e.payment || "Not paid"}</td>
                                 <td>
-                                <Button variant="outline-secondary"  href={`account/order/${e.id}`}>View </Button>
+                                <Button variant="outline-secondary"  href={`/account/order/${e.id}`}>View </Button>
                                 </td>
                             </tr>
                         )

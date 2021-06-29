@@ -6,6 +6,12 @@ export const Button =(props) => {
         <Link className="link" to={props.href}> {props.text}</Link>
     </SiteButton>)
 }
+export const CButton =(props) => {
+    return(
+    <SiteButton  className="btn m-2">
+        <Link className="link" to={props.href}> {props.text}</Link>
+    </SiteButton>)
+}
 export const SubmitButton =(props) => {
     return(
     <SiteButton  className="btn m-2">

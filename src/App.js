@@ -9,6 +9,10 @@ import { NotFound } from "./pages/notfound";
 import { Dashboard } from "./dashboard/dashboard";
 import { Account } from "./Account/Account";
 import Support from "./pages/support";
+import * as dotenv from 'dotenv'
+
+
+dotenv.config()
 
 const App =()=>{
   return (
