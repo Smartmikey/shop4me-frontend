@@ -37,12 +37,12 @@ export const UpdateOrderPopUp = (props)=>{
                     >
                 
                         
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="weight" class="form-label">weight </label>
                         <input type="number" class="form-control" id="weight" onChange={(e)=> props.data.handleWeightChange(e)} value={props.data.weightCh != ""? props.data.weightCh : props.data.value.weight}  /> 
                         {/* onChange={(e)=> setFName(e.target.value)}  value={fName !== ""? fName : data && data.verifyUser.userDetails.firstName} */}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="status" class="form-label">Order Status</label>
                         <select id="status" class="form-select" onChange={(e)=> props.data.handleStatusChange(e)} value={props.data.statusCh != ""? props.data.stauseCh : props.data.value.status} >
                         <option >--Select Order Status--</option>
@@ -51,7 +51,16 @@ export const UpdateOrderPopUp = (props)=>{
                         <option value="cancelled">Cancelled</option>  
                         </select>                  
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                        <label for="status" class="form-label">Payment Status</label>
+                        <select id="status" class="form-select" onChange={(e)=> props.data.handlePaymentChange(e)} value={props.data.paymentCh != ""? props.data.paymentCh : props.data.value.status} >
+                        <option >--Select Payment Status--</option>
+                        <option value="completed">Paid</option>
+                        <option value="processing">Processing</option>
+                        <option value="cancelled">Not Paid</option>  
+                        </select>                  
+                    </div>
+                    <div class="col-md-6">
                         <label for="shipingFee" class="form-label">Shipping Fee</label>
                         <input type="number" class="form-control" id="shipingFee" onChange={(e)=> props.data.handleShippingChange(e)} value={props.data.shippingCh != ""? props.data.shippingCh : props.data.value.shippingFee}  />
                     </div>

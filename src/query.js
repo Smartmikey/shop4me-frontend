@@ -95,6 +95,7 @@ export const GET_ORDERS = gql`
             weight
             url
             price
+            date
             payment
             userId  {
                 username
@@ -131,6 +132,7 @@ export const GET_ORDER = gql`
     desc
     weight
     url
+    date
     payment
     shippingFee
     userId  {

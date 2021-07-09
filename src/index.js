@@ -14,7 +14,8 @@ import { setContext } from '@apollo/client/link/context';
 import { Dashboard } from './dashboard/dashboard';
 import { useCookies } from "react-cookie";
 const httpLink = createUploadLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: "https://shop-4-me.herokuapp.com/graphql",
+  // 'http://localhost:5000/graphql',
   // credentials: 'include'
 });
 

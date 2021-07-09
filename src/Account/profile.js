@@ -31,7 +31,7 @@ const UserProfile = () => {
         }
         })
 
-        const [updateDetails, {error}] = useMutation(UPDATE_USER_DETAILS, {variables: {userId: user.id, fName, lName, address, dob, city, RState, nearestBusStop},
+        const [updateDetails, {error}] = useMutation(UPDATE_USER_DETAILS, {variables: {userId: user.id, fName, lName, address, dob, city, state:RState, phone, nearestBusStop},
         onError: (err)=> console.log(err),
         onCompleted: ()=>{
             setPopUp(true)

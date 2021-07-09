@@ -65,16 +65,26 @@ export const CREATEORDER = gql`
     }
 `
 export const UPDATE_ORDER = gql`
-    mutation updateOrder($orderId: String!, $shippingFee: Float, $weight: Float, $status: String) {
+    mutation updateOrder($orderId: String!, $payment: String, $shippingFee: Float, $weight: Float, $status: String) {
   updateOrder(orderId: $orderId, options: {
     shippingFee: $shippingFee,
     weight: $weight,
-    status: $status
+    status: $status,
+    payment: $payment
   }){
     id
     name
     shippingFee
     weight
+  }
+}
+`
+export const UPDATE_ORDER_PAYMENT = gql`
+    mutation updateOrderPayment($orderId: String!, $payment: String) {
+  updateOrder(orderId: $orderId, options: {
+    payment: $payment
+  }){
+    id
   }
 }
 `
@@ -147,5 +157,24 @@ mutation updateStore($id: String!, $name: String, $url: String, $logoUrl: String
     }
   }
 }
-
 `
+export const CREATE_TRANSACTION = gql`
+
+mutation createTransaction($amount: String!, $trans_ref: String!, $trans_id: String!,
+$flw_ref: String!, $userEmail: String!, $orderId: String!, $userId: String!, $date: String!) {
+  createTransaction(option: {
+    amount: $amount,
+    trans_ref: $trans_ref,
+    trans_id: $trans_id,
+    flw_ref: $flw_ref,
+    userEmail: $userEmail,
+    orderId: $orderId,
+    userId: $userId,
+    date: $date
+  }){
+    id
+    
+  }
+}
+`
+
