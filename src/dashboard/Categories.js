@@ -59,7 +59,6 @@ export const Categories =()=>{
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Number of stores</th>
                     
                     <th scope="col">
                         Actions
@@ -69,7 +68,7 @@ export const Categories =()=>{
                 <tbody>
                
 
-                {data && data.getCategories && data.getCategories.map(e =>{
+                {data?.getCategories?.map(e =>{
                     numbers+=1
                     return(
                         <>
@@ -77,10 +76,9 @@ export const Categories =()=>{
                             <tr key={e.id}>
                                 <th scope="row">{numbers}</th> 
                                 <td className="text-wrap">{e.name}</td>  
-                                <td>{e.stores.length}</td>
                                
                                 <td>
-                                <Button variant="outline-secondary"  href={`account/order/${e.id}`}>View </Button>
+                                <Button variant="outline-secondary" onClick={()=> {alert(`you clicked me ${e.name}`)}} >Add/remove store </Button>
                                 <Button variant="outline-danger" className="mx-2" onClick={()=>{
                                     window.confirm(`Are you sure you want to delete ${e.name} category?`)
                                     deleteCategory({variables: {id: e.id}})

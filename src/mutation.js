@@ -23,7 +23,7 @@ export const UploadUserImage = gql`
 
 export const UPDATE_USER_DETAILS = gql`
     mutation updateDetails($userId: String!, $fName: String, $lName: String, $dob: String, $address: String,
-        $city: String, $state: String, $nearestBusStop: String
+        $city: String, $state: String, $nearestBusStop: String, $phone: String
     ) {
     updateUserDetails(userId: $userId, options: {
         firstName: $fName,
@@ -32,6 +32,7 @@ export const UPDATE_USER_DETAILS = gql`
         address: $address,
         city: $city,
         state: $state,
+        phone: $phone,
         nearestBusStop: $nearestBusStop
     }){
             id
@@ -39,6 +40,7 @@ export const UPDATE_USER_DETAILS = gql`
         lastName
         country
         state
+        phone
     }
     }
 `

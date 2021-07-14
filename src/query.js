@@ -6,6 +6,13 @@ export const CATEGORY_QUERY = gql`
             id
             name
             slug
+            stores {
+                id
+                name
+                url
+                logoUrl
+                
+            }
         }
 
     }
@@ -44,6 +51,7 @@ export const VERIFYUSER = gql`
             state
             city
             dob
+            phone
             address
             nearestBusStop
         }
@@ -150,6 +158,8 @@ export const GET_ORDER = gql`
         }
     }
   }
+  transactionByOrderId(orderId: $id)
+
 }
 
 `
@@ -182,4 +192,25 @@ export const GET_SINGLE_STORE = gql`
             }
         }
 }
+`
+
+export const GET_TRANSACTIONS = gql`
+    query transactions {
+    getTransactions{
+        id
+        trans_id
+        trans_ref
+        amount 
+        userEmail
+        date
+        orderId {
+        id
+        name
+        }
+        userId{
+        username
+        }
+        
+    }
+    }
 `

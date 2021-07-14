@@ -5,7 +5,7 @@ import { CATEGORY_QUERY } from "../query";
 
 export const CategoryList = (props) =>{
     const {loading, error, data} = useQuery(CATEGORY_QUERY);
-
+    console.log(data);
     // console.log(data, "from list");
         
     

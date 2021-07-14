@@ -25,9 +25,7 @@ export const Users =()=>{
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
-                    <th scope="col">
-                        Actions
-                    </th>
+                    
                     </tr>
                 </thead>
                 <tbody>
@@ -41,9 +39,6 @@ export const Users =()=>{
                                 <td>{e.username}</td>  
                                 <td>{e.email}</td>
                                 <td>{e.role}</td>
-                                <td>
-                                <Button variant="outline-secondary"  href={`dashboard/user/${e.id}`}>View </Button>
-                                </td>
                             </tr>
                         )
                     })}

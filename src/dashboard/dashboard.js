@@ -11,6 +11,7 @@ import { Categories } from "./Categories";
 import OrderDetails from "./orderDetials";
 import AdminProfile from "./profile";
 import { Store } from "./store";
+import {Transaction} from "./transaction";
 
 
 
@@ -61,6 +62,9 @@ export const Dashboard =()=> {
                             <Link className="text-white" to="/dashboard/categories">Categories</Link>
                             </li>
                             <li >
+                            <Link className="text-white" to="/dashboard/transaction">Transaction</Link>
+                            </li>
+                            <li >
                             <Link className="text-white" to="/dashboard/stores">Store</Link>
                             </li>
                             <li >
@@ -89,6 +93,7 @@ export const Dashboard =()=> {
                             <Route path="/dashboard/orders" component={Orders} />
                             <Route path="/dashboard/stores" component={Store} />
                             <Route path="/dashboard/categories" component={Categories} />
+                            <Route path="/dashboard/transaction" component={Transaction} />
                             <Route path="/dashboard/profile" component={AdminProfile} />
                             <Route path="/dashboard/users" component={Users}/>
                             <Route path="/dashboard/" component={Dash} />

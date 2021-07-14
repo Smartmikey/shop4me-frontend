@@ -142,7 +142,7 @@ return (
                 <tbody>
                
 
-                {data && data.getStores && data.getStores.map(e =>{
+                {data?.getStores?.map(e =>{
                     numbers+=1
                     return(
                             <tr key={e.id}>

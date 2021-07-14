@@ -10,7 +10,6 @@ import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 
 const OrderDetails = () => {
     const {order} = useParams()
-
     const {error, data, refetch} = useQuery(GET_ORDER, {variables: {id: order},
         onError: (err)=> {
             return <p>something wen't wrong {err}</p>
@@ -71,6 +70,7 @@ const handleSubmit = (e) => {
 
 }
 
+// check if the customer has not paid and can pay
 const checkPayable = ()=> {
     if(data && data.getOrder && data.getOrder.payment != "paid"  && data.getOrder.weight != null 
      && data.getOrder.shippingFee != null){
@@ -95,19 +95,21 @@ const checkUserDetails = ()=> {
     return false
 }
 let amountToPay =(Number(data?.getOrder?.price) + Number(data?.getOrder?.shippingFee)) * 500
-console.log(data && data.getOrder.shippingFee);
 const config = {
     public_key: process.env.REACT_APP_FLUTTER_PUBLIC_KEY,
     tx_ref: Date.now(),
     amount: amountToPay,
     currency: 'NGN',
     payment_options: 'card,mobilemoney,ussd',
+    // meta: {
+    //     userId: User?.id,
+    //     orderId: order,
+
+    // },
     customer: {
-      userId: User?.id,
       email: User?.email,
       phonenumber: User?.phone,
       name: `${User?.userDetails.firstName} ${User?.userDetails?.lastName}`,
-      orderId: order,
     },
     customizations: {
         title: 'Shope for me order payment',
@@ -138,10 +140,10 @@ const close =()=> {
             <section className="card p-md-4">
                 <div className="row">
                 {
-                    User && User.role && User.role == "admin" ? (
+                    User?.role == "admin" ? (
                         <>
                         <Button className="w-50 d-inline m-3 col-md-2 col-sm-6" variant={"success"} onClick={()=> setPopUp(true)} >Update Order</Button>
-                    <Button className="w-50 d-inline m-3 col-md-2 col-sm-6" variant={"danger"} onClick={()=> deleteOrder()}>Delete Order</Button> </>
+                     {data?.transactionByOrderId ? "" : <Button className="w-50 d-inline m-3 col-md-2 col-sm-6" variant={"danger"} onClick={()=> deleteOrder()}>Delete Order</Button>} </>
                     ) : (
                         ""
                     )
@@ -231,20 +233,27 @@ const close =()=> {
                     submit={handleSubmit}
                     />: ""}
 
-                {checkPayable() && checkUserDetails() ? (<Button className="w-25 mx-auto btn-primary"
+                { data?.transactionByOrderId ? <h3 className="text-success m-3 text-uppercase ">You've paid for this order</h3> : checkPayable() && checkUserDetails() ? (
+                <Button className="w-25 mx-auto btn-primary"
                         onClick={() => {
                         handleFlutterPayment({
                             callback: (response) => {
                                 setPaid(response)
+                                console.log(response.status);
                                 console.log(response);
-                                if(response && response.status === "successful") {
-                                updateOrderPayment({varaible: {orderId: order, payment: "processing"}})
+                                // if(response.status == "successful") {
+                                    console.log(order);
+                                    
+                                // updateOrderPayment({variables: {orderId: order, payment: "processing"}})
                                 createTransaction({variables: {amount: String(response.amount), flw_ref: response.flw_ref,
-                                    trans_ref: String(response.tx_ref), trans_id: String(response.transaction_id), orderId: order, userEmail: response.customer.email,
-                                    userId: User && User.id
-                                }})} else {
-                                    setPaid(null)
-                                }
+                                    trans_ref: String(response.tx_ref), trans_id: String(response.transaction_id), orderId: order, date: new Date(Date.now()), userEmail: response.customer.email,
+                                    userId: User?.id
+                                }})
+                                //} else {
+                                //     console.log("something is wrong");
+                                //     console.log(response);
+                                //     setPaid(null)
+                                // }
                                 closePaymentModal() // this will close the modal programmatically
                                 refetch()
                             },
