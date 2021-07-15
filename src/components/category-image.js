@@ -6,12 +6,17 @@ export const CategoryImage = (props) => {
         <div>
         <GalleryStype className="row mx-auto">
         {
-            props.category.map(item=>(
+            props?.category?.map(item=>(
 
                 <div className="col-md-3 col-lg-3 col-sm-6" key={item.id}>
                     <a href="#">
                     
-                    <div className="module mid" style={{background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("${item.url}")`}}>
+                    <div className="module mid" style={{
+                        background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("${item.logoUrl}")`,
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat" 
+                        }}>
                     <h2>{item.name}</h2>
                     </div>
                     </a>
@@ -32,6 +37,7 @@ const GalleryStype = styled.section`
     margin: auto; */
     .module {
         background-size: cover;
+        background-position: center;
         height: 200px;
         margin: 10px 0 0 10px;
         position: relative;

@@ -100,9 +100,10 @@ export const DELETE_ORDER = gql`
 `
 
 export const CREATE_CATEGORY = gql`
-    mutation createCategory($name: String!){
+    mutation createCategory($name: String!, $storeId: [String!]!){
         createCategory(options: {
-            name: $name
+            name: $name,
+            storeId: $storeId
         }){
             id
             name
@@ -120,19 +121,16 @@ export const DELETE_CATEGORY = gql`
 `
 
 export const CREATE_STORE = gql`
-    mutation createStore($name: String!, $url: String!, $logoUrl: String!, $categoryIds: [String!]!) {
+    mutation createStore($name: String!, $url: String!, $logoUrl: String!) {
     createStore(options: {
         name: $name,
         url:$url,
         logoUrl: $logoUrl,
-        categoryIds: $categoryIds
     }){
+      id
         name
         url
-        categoryIds{
-            id 
-            name
-        }
+        
     }
 }
 
@@ -146,17 +144,13 @@ export const DELETE_STORE = gql`
 
 `
 export const UPDATE_STORE = gql`
-mutation updateStore($id: String!, $name: String, $url: String, $logoUrl: String, $categoryIds: [String!]) {
+mutation updateStore($id: String!, $name: String, $url: String, $logoUrl: String) {
   updateStore(id: $id, options: {
     name: $name,
     url:$url,
     logoUrl: $logoUrl,
-    categoryIds: $categoryIds
   }){
-    categoryIds {
-        id
-        name
-    }
+    id
   }
 }
 `
@@ -180,3 +174,17 @@ $flw_ref: String!, $userEmail: String!, $orderId: String!, $userId: String!, $da
 }
 `
 
+export const UPDATE_CATEGORY_STORE =gql`
+    mutation updateCategoryStore($id: String!, $storeId: [String!]!) {
+  updateCategoryStore(id: $id, options: {
+    storeId: $storeId
+  }){
+      id
+    name
+    stores {
+        id
+      name
+    }
+  }
+}
+`

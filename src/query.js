@@ -125,6 +125,13 @@ export const GET_CATEGORIES = gql`
             logoUrl
             }
         }
+        getStores{
+            id
+            name
+            logoUrl
+            url
+            id
+        }
     }
 
 `
@@ -167,10 +174,11 @@ export const GET_ORDER = gql`
 export const GET_STORE = gql`
     query getStores {
         getStores{
+            id
             name
             logoUrl
             url
-            id
+            
         }
  
         getCategories{
@@ -192,6 +200,23 @@ export const GET_SINGLE_STORE = gql`
             }
         }
 }
+`
+
+export const GET_CATEGORY_BY_ID = gql`
+
+query get_categories($id: String!) {
+  getCategory(id: $id){
+    id
+    name
+    slug
+    stores {
+        id
+      name
+      url
+    }
+  }
+}
+
 `
 
 export const GET_TRANSACTIONS = gql`

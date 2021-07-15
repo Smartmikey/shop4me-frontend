@@ -95,8 +95,30 @@ export const CreateCategoryPopUp = (props)=>{
                         <label for="catName" className="form-label">Category Name </label>
                         <input type="text" className="form-control" id="catName" onChange={(e)=> props.data.handleCategoryChange(e)} value={props.data.categoryName }  /> 
                     </div>
+                    <div className="col-md-12">
+                        <label for="storeLink" className="form-label">Stores </label>
+                        <select className="form-select" multiple aria-label="multiple select example" id="select-store-type"  onChange={(e)=> props.data.handleStoreIdsChange(e)} >
+
+                            {/* collecting selected field and rendering them as selected */}
+                            {props?.data?.value?.map(e =>{
+                            
+                            // checking for the available store in the database and rendering them as checked
+                            // ischecked = props.data?.singleCategory?.getCategory?.stores
+                            // .find(g => {
+                            //     console.log("storeId: ", e.id, " CategoryStore: ", g.id, " CategoryName: ", g.name);
+                            //    return g.id == e.id
+                            // })
+                                   
+                                return (
+                                    <option className="text-capitalize" key={e.id}  value={e.id}>{e.name}</option>
+
+                                )
+                            })}
+                        </select>
+                        <small className="m-2">cmd/ctr + click to select multiple</small>
+                    </div>
                     
-                    <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Update</Button>
+                    <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Create Category</Button>
                 </form>
                 </div>
                 
@@ -132,7 +154,7 @@ export const CreateStorePopUp = (props)=>{
                         <label for="storeLink" className="form-label">Store Link </label>
                         <input type="text" className="form-control" id="storeLink" onChange={(e)=> props.data.handleUrlChange(e)} value={props.data.url}  /> 
                     </div>
-                    <div className="col-md-6">
+                    {/* <div className="col-md-6">
                         <label for="storeLink" className="form-label">Categories </label>
                         <select className="form-select" multiple aria-label="multiple select " id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)}>
                             {props && props.data && props.data.cat.map(e =>{
@@ -143,8 +165,8 @@ export const CreateStorePopUp = (props)=>{
                             })}
                         </select>
                         <small className="m-2">cmd/ctr + click to select multiple</small>
-                    </div>
-                    <div className="col-md-6">
+                    </div> */}
+                    <div className="col-md-12">
                         <label for="storeLogo" className="form-label">Store Logo </label>
                         <input type="file" className="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)}  /> 
                     </div>
@@ -164,7 +186,7 @@ export const CreateStorePopUp = (props)=>{
 export const UpdateStorePopUp = (props)=>{
     const totalCat = props.data.cat
 
-    let availableCat = props.data && props.data.SingleStore.getstore && props.data.SingleStore.getstore.categoryIds
+    // let availableCat = props.data && props.data.SingleStore.getstore && props.data.SingleStore.getstore.categoryIds
 
     // console.log(" total  Cat: ",totalCat);
     // console.log(" available  Cat: ",availableCat);
@@ -196,12 +218,12 @@ export const UpdateStorePopUp = (props)=>{
                         <label for="storeLink" className="form-label">Store Link </label>
                         <input type="text" className="form-control" id="storeLink" onChange={(e)=> props.data.handleUrlChange(e)} value={props.data.url != ""? props.data.url : props.data && props.data.SingleStore && props.data.SingleStore.getstore.url }  /> 
                     </div>
-                    <div className="col-md-12">
+                    {/* <div className="col-md-12">
                         <label for="storeLink" className="form-label">Categories </label>
                         <select className="form-select" multiple aria-label="multiple select example" id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)} >
 
                             {/* collecting selected field and rendering them as selected */}
-                            {props?.data?.cat?.map(e =>{
+                            {/*{props?.data?.cat?.map(e =>{
 
                             ischecked = props?.data?.SingleStore?.getstore && props.data?.SingleStore?.getstore?.categoryIds
                             .find(g => {
@@ -215,7 +237,7 @@ export const UpdateStorePopUp = (props)=>{
                             })}
                         </select>
                         <small className="m-2">cmd/ctr + click to select multiple</small>
-                    </div>
+                    </div> */}
                     {/* <div className="col-md-6">
                         <label for="storeLogo" className="form-label">Store Logo </label>
                         <input type="file" className="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)}  /> 
@@ -233,9 +255,7 @@ export const UpdateStorePopUp = (props)=>{
 
 // STORE UPDATE AND ADDING
 export const UpdateCatStorePopUp = (props)=>{
-    const totalCat = props.data.cat
 
-    let availableCat = props.data && props.data.SingleStore.getstore && props.data.SingleStore.getstore.categoryIds
 
     // console.log(" total  Cat: ",totalCat);
     // console.log(" available  Cat: ",availableCat);
@@ -260,24 +280,26 @@ export const UpdateCatStorePopUp = (props)=>{
                 
                         
                     <div className="col-md-6">
-                        <p for="storeName" className="">Store Name </p>
-                        <input type="text" className="form-control" id="storeName" onChange={(e)=> props.data.handleNameChange(e)} value={props.data.name != ""? props.data.name : props.data && props.data.SingleStore && props.data.SingleStore.getstore.name }  /> 
+                        {/* {console.log(props.data?.singleCategory)} */}
+                        {/* <p for="storeName" className="fs-3">{props.data?.singleCategory.getCategory.name}</p> */}
                     </div>
                     
                     <div className="col-md-12">
-                        <label for="storeLink" className="form-label">Categories </label>
-                        <select className="form-select" multiple aria-label="multiple select example" id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)} >
+                        <label for="storeLink" className="form-label">Stores </label>
+                        <select className="form-select" multiple aria-label="multiple select example" id="select-store-type"  onChange={(e)=> props.data.handleStoreIdsChange(e)} >
 
                             {/* collecting selected field and rendering them as selected */}
-                            {props?.data?.cat?.map(e =>{
-
-                            ischecked = props?.data?.SingleStore?.getstore && props.data?.SingleStore?.getstore?.categoryIds
+                            {props?.data?.stores?.map(e =>{
+                            
+                            // checking for the available store in the database and rendering them as checked
+                            ischecked = props.data?.singleCategory?.getCategory?.stores
                             .find(g => {
+                                console.log("storeId: ", e.id, " CategoryStore: ", g.id, " CategoryName: ", g.name);
                                return g.id == e.id
                             })
                                    
                                 return (
-                                    <option key={e.id} selected={ischecked} value={e.id}>{e.name}</option>
+                                    <option className="text-capitalize" key={e.id} selected={ischecked} value={e.id}>{e.name}</option>
 
                                 )
                             })}

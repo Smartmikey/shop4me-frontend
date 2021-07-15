@@ -37,7 +37,7 @@ export const Store =()=>{
         }, 
         fetchPolicy: 'no-cache'
     })
-    const [createStore] = useMutation(CREATE_STORE, {variables: {name: name.toLowerCase(), url, logoUrl,categoryIds: values},
+    const [createStore] = useMutation(CREATE_STORE, {variables: {name: name.toLowerCase(), url, logoUrl},
         onCompleted: ()=> {
             refetch()
             setLoading(false)
@@ -45,7 +45,7 @@ export const Store =()=>{
             reset()
         }
     })
-    const [updateStore] = useMutation(UPDATE_STORE, {variables: {id: StoreId, name: name.toLowerCase(), url, logoUrl, categoryIds: values},
+    const [updateStore] = useMutation(UPDATE_STORE, {variables: {id: StoreId, name: name.toLowerCase(), url, logoUrl},
     onCompleted: ()=> {
         refetch()
         setLoading(false)
@@ -96,13 +96,13 @@ const handleUrlChange =(e)=> {
 const handleLogoUrlChange =(e)=> {
     setLogo(e.target.files[0])
 } 
-const handleCategoryIdsChange =(e)=> {
+// const handleCategoryIdsChange =(e)=> {
   
-    selected = document.querySelectorAll('#select-cat-type option:checked');
-    setValues(Array.from(selected).map(el => el.value));
+//     selected = document.querySelectorAll('#select-cat-type option:checked');
+//     setValues(Array.from(selected).map(el => el.value));
 
     
-} 
+// } 
 
 const handleSubmit = (e)=>{
     e.preventDefault()
@@ -176,14 +176,12 @@ return (
                 {popUp ?<CreateStorePopUp title="Create Store" data={{
                     value: data && data.getStores,
                     cat: data && data.getCategories,
-                    handleCategoryIdsChange,
                     handleNameChange,
                     handleUrlChange,
                     handleLogoUrlChange,
                     name,
                     url,
                     logoUrl,
-                    categoryIds,
                     loading
 
                     }} 
@@ -196,14 +194,12 @@ return (
                 {popUpdate ? <UpdateStorePopUp title="Update Store Details" data={{
                         value: data && data.getStores,
                         cat: data && data.getCategories,
-                        handleCategoryIdsChange,
                         handleNameChange,
                         handleUrlChange,
                         handleLogoUrlChange,
                         name,
                         url,
                         logoUrl,
-                        categoryIds,
                         SingleStore,
                         loading
                         }} 

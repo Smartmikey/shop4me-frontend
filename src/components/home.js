@@ -6,7 +6,11 @@ import { Title } from "./Title";
 import { Patners } from "./patners";
 import { useCookies } from "react-cookie";
 import { CookieHandler } from "cookie";
+import { useQuery } from "@apollo/client";
+import { GET_CATEGORIES, GET_STORE } from "../query";
 function Home() {
+
+  const {error, data} = useQuery(GET_STORE)
  
   // const [cookie, setCookie, removeCookie] = useCookies("")
   const patners = [
@@ -73,11 +77,19 @@ function Home() {
       url: "/logo192.png"
     },
   ]
-
+  console.log(data);
   return (
     <>
     {/* <CookieHandler /> */}
       <HeroSection title="SHOP IN US SHIP TO NIGERIA" text="lorem ipsum The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link" bglink="/rowan-freeman.jpg" />
+      <section className="featured-category">
+        <div className="container mt-4 py-5">
+        <h2>Featured stores</h2>
+        <p>At mattis quis mi in hac proin metus velit. Id consectetur odio magnis sollicitudin purus mauris. Adipiscing purus sodales velit sem. Purus lacus faucibus feugiat diam. At in ultrices egestas.</p>
+        <CategoryImage category={data?.getStores} />
+        <Button text="browse more categories"/>
+        </div>
+      </section>
       <section className="container p-md-5">
         <div className="row m-md-5">
           <div className="col-md-6 px-4 col-lg-6 col-sm-12">
@@ -91,14 +103,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="featured-category">
-        <div className="container mt-4 py-5">
-        <h2>Featured category</h2>
-        <p>At mattis quis mi in hac proin metus velit. Id consectetur odio magnis sollicitudin purus mauris. Adipiscing purus sodales velit sem. Purus lacus faucibus feugiat diam. At in ultrices egestas.</p>
-        <CategoryImage category={category} />
-        <Button text="browse more categories"/>
-        </div>
-      </section>
+     
       <section className="container">
         <div className="mx-auto text-center m-md-5 py-5 m-sm-2">
 
