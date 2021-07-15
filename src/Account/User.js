@@ -27,10 +27,10 @@ const UserAccount = () => {
             <section className="container">
                 {
                     
-                    data && data.verifyUser && data.verifyUser.orders.map(order =>{
+                    data?.verifyUser?.orders?.map(order =>{
                         
                         
-                        if(order.status == "processing"){
+                        if(order.status == "processing"){  
                             processing += 1
                         }else if (order.status == "completed"){
                             completed += 1

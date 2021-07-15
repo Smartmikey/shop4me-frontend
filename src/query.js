@@ -239,3 +239,25 @@ export const GET_TRANSACTIONS = gql`
     }
     }
 `
+
+export const DASHBOARD_QUERY = gql`
+    query getItems {
+        getCategories{
+            id
+        }
+
+        getOrders {
+            id
+            status
+        }
+        getStores{
+            id
+        }
+        getUsers{
+            id
+        }
+        getTransactions{
+            id
+        }
+    }
+`
