@@ -18,6 +18,7 @@ export const NotLoggedIn =()=> {
         }
     }
    
+    const cookieCount = cookie["cart"]
     const logout = ()=> {
         removeCookie("token")
         window.location.href = "/"
@@ -30,7 +31,7 @@ export const NotLoggedIn =()=> {
             {/* {        setUser(data.verifyUser)} */}
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="#">
-                        <img src="/shop4me.png" />
+                        <img className="w-75" src="/shop4me.png" />
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -71,6 +72,14 @@ export const NotLoggedIn =()=> {
                     </ul>
                     
                     </div>
+                        <div className="position-relative mr-3 ">
+                        <Link className="nav-link fs-3 p-0" to="/cart"><i class="fas fa-shopping-cart"></i></Link>
+                        {cookieCount.length > 0 ? ( <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            { cookieCount.length}
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                        ): "" }
+                        </div>
                     {
                             data && data.verifyUser && user ? 
 

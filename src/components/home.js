@@ -1,4 +1,4 @@
-import { HeroSection } from "./hero";
+import { HomeHeroSection } from "./hero";
 import { Button } from "./styled";
 // import "../App.css"
 import { CategoryImage } from "./category-image";
@@ -81,7 +81,7 @@ function Home() {
   return (
     <>
     {/* <CookieHandler /> */}
-      <HeroSection title="SHOP IN US SHIP TO NIGERIA" text="lorem ipsum The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link" bglink="/rowan-freeman.jpg" />
+      <HomeHeroSection title="SHOP IN US SHIP TO NIGERIA" text="lorem ipsum The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link" bglink="/rowan-freeman.png" />
       <section className="featured-category">
         <div className="container mt-4 py-5">
         <h2>Featured stores</h2>
@@ -119,12 +119,12 @@ function Home() {
           <div className="col-md-6 col-sm-12">
             <div className="row">
               <div className="col-md-6 col-sm-12 mt-5">
-                <img src="rowan-freeman.jpg" className="w-100" />
-                <img src="rowan-freeman.jpg" className="w-100 mt-4" />
+                <img src="rowan-freeman.png" className="w-100" />
+                <img src="rowan-freeman.png" className="w-100 mt-4" />
               </div>
               <div className="col-md-6 col-sm-12">
-                <img src="rowan-freeman.jpg" className="w-100" />
-                <img src="rowan-freeman.jpg" className="w-100 mt-4" />
+                <img src="rowan-freeman.png" className="w-100" />
+                <img src="rowan-freeman.png" className="w-100 mt-4" />
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ import { Dashboard } from "./dashboard/dashboard";
 import { Account } from "./Account/Account";
 import Support from "./pages/support";
 import * as dotenv from 'dotenv'
+import CartPage from "./pages/cart";
 
 
 dotenv.config()
@@ -20,12 +21,14 @@ const App =()=>{
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/order" component={Order} />
+        <Route path="/category/:name" component={Category} />
         <Route path="/category" component={Category} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={ Register } />
         <Route path="/dashboard" component={ Dashboard } />
         <Route path="/account" component={ Account } />
         <Route path="/support" component={Support} />
+        <Route path="/cart" component={CartPage} />
 
         <Route component={NotFound} />
       </Switch>

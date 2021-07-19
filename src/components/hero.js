@@ -1,9 +1,49 @@
 import styled from "styled-components"
 
+export const HomeHeroSection = (props) => {
+
+    return (
+        <section className="h-50">
+       {/* <Herosection > bglink={props.bglink}>*/}
+                <div id="carouselExampleControls " class="carousel slide " data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img src="/rowan-freeman.png" class="d-block w-100" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                    <img src="/rowan-freeman.png" class="d-block w-100" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                    <img src="/rowan-freeman.png" class="d-block w-100" alt="..." />
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                </div>
+            {/* <div className="arrow-area"></div>
+            <section>
+                <h1 id="heroId">{props.title}</h1>
+                <p>{props.text}</p>
+            </section>
+            <div className="arrow-area"></div> */}
+
+        {/* // </Herosection> */}
+
+        </ section>
+    )
+}
 export const HeroSection = (props) => {
 
     return (
-        <Herosection bglink={props.bglink}>
+        <section className="h-50">
+       <Herosection  bglink={props.bglink}>
+                
             <div className="arrow-area"></div>
             <section>
                 <h1 id="heroId">{props.title}</h1>
@@ -12,6 +52,8 @@ export const HeroSection = (props) => {
             <div className="arrow-area"></div>
 
         </Herosection>
+
+        </ section>
     )
 }
 export const CategoryHeroSection = (props) => {

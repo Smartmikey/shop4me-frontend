@@ -100,10 +100,12 @@ export const DELETE_ORDER = gql`
 `
 
 export const CREATE_CATEGORY = gql`
-    mutation createCategory($name: String!, $storeId: [String!]!){
+    mutation createCategory($name: String!, $imageUrl: String!, $desc: String!, $storeId: [String!]!){
         createCategory(options: {
             name: $name,
-            storeId: $storeId
+            storeId: $storeId,
+            desc: $desc,
+            imageUrl: $imageUrl
         }){
             id
             name

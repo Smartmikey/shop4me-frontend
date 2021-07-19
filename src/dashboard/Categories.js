@@ -15,9 +15,33 @@ export const Categories =()=>{
     const [SuccessPopUp, setSuccessPopUp] = useState(false)
     const [singleCategory, setSingleCategory] = useState("")
     const [categoryId, setCategoryId] = useState("")
+    const [imageUrl, setImageUrl] = useState("")
+    const [image, setImage] = useState("")
+    const [desc, setDesc] = useState("")
     const [storeValues, setStoreValues] = useState([])
 
-    const [createCategory] = useMutation(CREATE_CATEGORY, {variables: {name: categoryName, storeId: storeValues}, 
+
+
+    const uploadImage = () => {
+        const data = new FormData()
+        data.append("file", image)
+        data.append("upload_preset", "xmawfybc")
+        data.append("cloud_name","smartmikey")
+        fetch("https://api.cloudinary.com/v1_1/smartmikey/image/upload",{
+        method:"post",
+        body: data
+        })
+        .then(resp => resp.json())
+        .then(data => {
+        setImageUrl(data.url)
+
+        createCategory()
+        })
+
+        .catch(err => console.log(err))
+    }
+
+    const [createCategory] = useMutation(CREATE_CATEGORY, {variables: {name: categoryName, desc, imageUrl,  storeId: storeValues}, 
         onCompleted: () =>{
             refetch()
             setSuccessPopUp(true)
@@ -48,6 +72,14 @@ export const Categories =()=>{
         setCategoryName(e.target.value)
     }
 
+    const handleImageChange =(e)=> {
+        setImage(e.target.files[0])
+    }
+
+    const handleDescChange =(e)=> {
+        setDesc(e.target.value)
+    }
+
     const reset = () => {
         setSingleCategory("")
         setCategoryId("")
@@ -58,7 +90,7 @@ export const Categories =()=>{
 
     const handleSubmit=(e)=>{
         e.preventDefault()
-        createCategory()
+        uploadImage()
     }
     const handleUpdateSubmit=(e)=>{
         e.preventDefault()
@@ -142,7 +174,11 @@ export const Categories =()=>{
                     value: data && data.getStores,
                     handleCategoryChange,
                     categoryName,
-                    handleStoreIdsChange
+                    handleStoreIdsChange,
+                    handleDescChange,
+                    handleImageChange,
+                    desc,
+                    
                     }} 
                     close={close}
                     submit={handleSubmit}

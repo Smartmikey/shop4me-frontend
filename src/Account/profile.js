@@ -57,40 +57,40 @@ const UserProfile = () => {
                 
                         <>
                             <div class="col-md-6">
-                    <label for="fName" class="form-label">First Name</label>
+                    <label htmlFor="fName" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="fName" onChange={(e)=> setFName(e.target.value)}  value={fName !== ""? fName : data && data.verifyUser.userDetails.firstName} />
                 </div>
                  <div class="col-md-6">
-                    <label for="lName" class="form-label">Last Name</label>
+                    <label htmlFor="lName" class="form-label">Last Name</label>
                     <input type="text" class="form-control" id="lName" onChange={(e)=> setLName(e.target.value)} value={lName !== ""? lName :  data?.verifyUser?.userDetails?.lastName}/>
                 </div>
                 
                 <div class="col-12">
-                    <label for="inputAddress" class="form-label">Address</label>
+                    <label htmlFor="inputAddress" class="form-label">Address</label>
                     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St Apartment, studio, or floor" onChange={(e)=> setAddress(e.target.value)} value={address !== ""? address :  data?.verifyUser?.userDetails?.address} />
                 </div>
                 <div class="col-12">
-                    <label for="busStop" class="form-label">Nearest Bus stop</label>
+                    <label htmlFor="busStop" class="form-label">Nearest Bus stop</label>
                     <input type="text" class="form-control" id="busStop" placeholder="bus stop name" onChange={(e)=> setNearestBusStop(e.target.value)} value={nearestBusStop !== ""? nearestBusStop :  data?.verifyUser?.userDetails?.nearestBusStop} />
                 </div>
                 
                 <div class=" col-md-4">
-                <label for="inputdob" class="form-label">Date of Birth</label>
+                <label htmlFor="inputdob" class="form-label">Date of Birth</label>
                 <div class="input-group input-group-text">
                     <input id="inputdob" class="form-group-text mt-0 border-0" style={{background: "#0000"}} type="date" onChange={(e)=> setDob(e.target.value)} value={dob !== ""? dob :  data?.verifyUser?.userDetails?.dob}  />
 
                 </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="inputCity" class="form-label">City</label>
+                    <label htmlFor="inputCity" class="form-label">City</label>
                     <input type="text" class="form-control" id="inputCity" onChange={(e)=> setCity(e.target.value)} value={city !== ""? city :  data?.verifyUser?.userDetails?.city}/>
                 </div>
                 <div class="col-md-4">
-                    <label for="tel" class="form-label">Phone Number</label>
+                    <label htmlFor="tel" class="form-label">Phone Number</label>
                     <input type="tel" class="form-control" id="tel"  onChange={(e)=> setPhone(e.target.value)} value={phone !== ""? phone :  data?.verifyUser?.userDetails?.phone} />
                 </div>
                 <div class="col-md-4">
-                    <label for="inputState" class="form-label">State</label>
+                    <label htmlFor="inputState" class="form-label">State</label>
                     <select id="inputState" class="form-select" onChange={(e)=> setRState(e.target.value)} value={RState !== ""? RState :  data?.verifyUser?.userDetails?.state}>
                         <option >--Select State--</option>
                         <option value="abia">Abia</option>
@@ -133,7 +133,7 @@ const UserProfile = () => {
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label for="country" class="form-label">Country</label>
+                    <label htmlFor="country" class="form-label">Country</label>
                     <input type="text" class="form-control" id="country" disabled value={ data?.verifyUser?.userDetails?.country}/>
 
                 </div> 

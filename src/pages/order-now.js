@@ -7,6 +7,7 @@ import Files from "react-butterfiles";
 import { useCookies } from "react-cookie";
 import { PopUp } from "../components/popUp";
 import { Button, Spinner } from "react-bootstrap";
+import {v4 as uuid} from 'uuid'
 
 export const Order =()=> {
     const[name, setName] = useState("")
@@ -21,6 +22,9 @@ export const Order =()=> {
     const [popUp, setPopUp] = useState(false)
     const successIcon = <i className=" fs-1 far fa-check-circle"></i>
 
+    const [cookie, setCookie, removeCookie] = useCookies('')
+
+    
     const resetForm = () => {
         setName("")
         setImageName("")
@@ -33,13 +37,13 @@ export const Order =()=> {
         setDate(new Date(Date.now()).toUTCString())
     })
 
-    const [createOrder, {error, data}] = useMutation(CREATEORDER, {variables: {name, url,desc, price: parseFloat(price), date, imageUrl},
-        onCompleted: ()=>{
-            setLoading(false)
-            setPopUp(true)
-            resetForm()
-        }
-    })
+    // const [createOrder, {error, data}] = useMutation(CREATEORDER, {variables: {name, url,desc, price: parseFloat(price), date, imageUrl},
+    //     onCompleted: ()=>{
+    //         setLoading(false)
+    //         setPopUp(true)
+    //         resetForm()
+    //     }
+    // })
 
     const uploadImage = () => {
         const data = new FormData()
@@ -54,11 +58,11 @@ export const Order =()=> {
         .then(data => {
         setImageUrl(data.url)
 
-        createOrder()
+        addToCart()
         })
 
         .catch(err => console.log(err))
-        }
+    }
         
     let handleImage =(e) =>{
         // e.preventDefault
@@ -77,7 +81,64 @@ export const Order =()=> {
         e.preventDefault()
         
     }
+
+    // useEffect(()=>{
+    //     setCookie("cart", [{
+    //         id: uuid(),
+    //         name: "t-shirt",
+    //         desc: "blue in color",
+    //         amount: 56,
+    //         website: "amazon.com",
+    //         image: "somedemo.png",
+    //         count: 2,
+    //         total: 112
+    //     },
+    //     {
+    //         name: "trouser",
+    //         desc: "blue in color",
+    //         amount: 56,
+    //         website: "amazon.com",
+    //         image: "somedemo.png",
+    //         count: 2,
+    //         total: 112
+    //     },
+    //     {
+    //         name: "trouser",
+    //         desc: "blue in color",
+    //         amount: 56,
+    //         website: "amazon.com",
+    //         image: "somedemo.png",
+    //         count: 2,
+    //         total: 112
+    //     }] )
+    // }, [])
+
+    const addToCart = ()=> {
+        let tempItem = {
+            id: uuid(),
+            name,
+            desc,
+            price: parseFloat(price),
+            url,
+            imageUrl: imageUrl,
+            date,
+            count: 2,
+            total: ()=> this.count * price
+        }
+
+        let cart = cookie['cart']
+
+        cart ? cart = [...cart, tempItem] : cart =[tempItem]
+        setCookie("cart", cart)
+        setLoading(false)
+        setPopUp(true)
+        resetForm()
+        window.location.reload(true)
+
+        // name, url,desc, price: parseFloat(price), date, imageUrl
+    }
     console.log(imageUrl);
+    console.log(cookie["cart"]);
     return (
         <div>
             <HeroSection title="Order now" text="" bglink="/order now.jpg"/>
@@ -89,7 +150,6 @@ export const Order =()=> {
                     e.preventDefault(); 
                     setLoading(true)
                     uploadImage()
-                    
                     
                     }} 
                     >
@@ -130,7 +190,7 @@ export const Order =()=> {
                         <div className="text-center">
 
                         {loading == true ? (<Button variant="primary" disabled>
-    <Spinner as="span" animation="border" size="sm" role="status"  aria-hidden="true"/> </Button>) :  <SubmitButton text= "place order" />}
+    <Spinner as="span" animation="border" size="sm" role="status"  aria-hidden="true"/> </Button>) :  <SubmitButton text= "Add to Cart" />}
                         </div>
                         {/* {data ? data : ""} */}
                     </form>

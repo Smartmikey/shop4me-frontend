@@ -261,3 +261,20 @@ export const DASHBOARD_QUERY = gql`
         }
     }
 `
+
+export const CATEGORY_BY_SLUG = gql`
+    query ($slug: String!) {
+    getCategoryByName(slug: $slug){
+        id
+        name
+        desc
+        imageUrl
+        stores {
+            id
+            name
+            url
+            logoUrl
+        }
+  }
+}
+`

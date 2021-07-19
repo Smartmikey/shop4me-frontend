@@ -38,12 +38,12 @@ export const UpdateOrderPopUp = (props)=>{
                 
                         
                     <div className="col-md-6">
-                        <label for="weight" className="form-label">weight </label>
+                        <label htmlFor="weight" className="form-label">weight </label>
                         <input type="number" className="form-control" id="weight" onChange={(e)=> props.data.handleWeightChange(e)} value={props.data.weightCh != ""? props.data.weightCh : props.data.value.weight}  /> 
                         {/* onChange={(e)=> setFName(e.target.value)}  value={fName !== ""? fName : data && data.verifyUser.userDetails.firstName} */}
                     </div>
                     <div className="col-md-6">
-                        <label for="status" className="form-label">Order Status</label>
+                        <label htmlFor="status" className="form-label">Order Status</label>
                         <select id="status" className="form-select" onChange={(e)=> props.data.handleStatusChange(e)} value={props.data.statusCh != ""? props.data.stauseCh : props.data.value.status} >
                         <option >--Select Order Status--</option>
                         <option value="processing">Processing</option>
@@ -52,7 +52,7 @@ export const UpdateOrderPopUp = (props)=>{
                         </select>                  
                     </div>
                     <div className="col-md-6">
-                        <label for="status" className="form-label">Payment Status</label>
+                        <label htmlFor="status" className="form-label">Payment Status</label>
                         <select id="status" className="form-select" onChange={(e)=> props.data.handlePaymentChange(e)} value={props.data.paymentCh != ""? props.data.paymentCh : props.data.value.status} >
                         <option >--Select Payment Status--</option>
                         <option value="completed">Paid</option>
@@ -61,7 +61,7 @@ export const UpdateOrderPopUp = (props)=>{
                         </select>                  
                     </div>
                     <div className="col-md-6">
-                        <label for="shipingFee" className="form-label">Shipping Fee</label>
+                        <label htmlFor="shipingFee" className="form-label">Shipping Fee</label>
                         <input type="number" className="form-control" id="shipingFee" onChange={(e)=> props.data.handleShippingChange(e)} value={props.data.shippingCh != ""? props.data.shippingCh : props.data.value.shippingFee}  />
                     </div>
                     <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Update</Button>
@@ -91,12 +91,16 @@ export const CreateCategoryPopUp = (props)=>{
                     >
                 
                         
-                    <div className="col-md-12">
-                        <label for="catName" className="form-label">Category Name </label>
+                    <div className="col-md-6">
+                        <label htmlFor="catName" className="form-label">Category Name </label>
                         <input type="text" className="form-control" id="catName" onChange={(e)=> props.data.handleCategoryChange(e)} value={props.data.categoryName }  /> 
                     </div>
-                    <div className="col-md-12">
-                        <label for="storeLink" className="form-label">Stores </label>
+                    <div className="col-md-6">
+                        <label htmlFor="categoryImage" className="form-label">Category Image </label>
+                        <input type="file" className="form-control" id="categoryImage" onChange={(e)=> props.data.handleImageChange(e)}  /> 
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="storeLink" className="form-label">Stores </label>
                         <select className="form-select" multiple aria-label="multiple select example" id="select-store-type"  onChange={(e)=> props.data.handleStoreIdsChange(e)} >
 
                             {/* collecting selected field and rendering them as selected */}
@@ -115,7 +119,13 @@ export const CreateCategoryPopUp = (props)=>{
                                 )
                             })}
                         </select>
+
                         <small className="m-2">cmd/ctr + click to select multiple</small>
+                    </div>
+
+                    <div class=" col-md-6 p-2">
+                    <label htmlFor="floatingTextarea2 " className="">Description</label>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: '100px'}} onChange={(e)=> props.data.handleDescChange(e)}></textarea>
                     </div>
                     
                     <Button variant="success" type="submit" className="w-50 mx-auto mt-3 ">Create Category</Button>
@@ -147,15 +157,15 @@ export const CreateStorePopUp = (props)=>{
                 
                         
                     <div className="col-md-6">
-                        <label for="storeName" className="form-label">Store Name </label>
+                        <label htmlFor="storeName" className="form-label">Store Name </label>
                         <input type="text" className="form-control" id="storeName" onChange={(e)=> props.data.handleNameChange(e)} value={props.data.name }  /> 
                     </div>
                     <div className="col-md-6">
-                        <label for="storeLink" className="form-label">Store Link </label>
+                        <label htmlFor="storeLink" className="form-label">Store Link </label>
                         <input type="text" className="form-control" id="storeLink" onChange={(e)=> props.data.handleUrlChange(e)} value={props.data.url}  /> 
                     </div>
                     {/* <div className="col-md-6">
-                        <label for="storeLink" className="form-label">Categories </label>
+                        <label htmlFor="storeLink" className="form-label">Categories </label>
                         <select className="form-select" multiple aria-label="multiple select " id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)}>
                             {props && props.data && props.data.cat.map(e =>{
                                 return (
@@ -167,7 +177,7 @@ export const CreateStorePopUp = (props)=>{
                         <small className="m-2">cmd/ctr + click to select multiple</small>
                     </div> */}
                     <div className="col-md-12">
-                        <label for="storeLogo" className="form-label">Store Logo </label>
+                        <label htmlFor="storeLogo" className="form-label">Store Logo </label>
                         <input type="file" className="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)}  /> 
                     </div>
                     
@@ -211,15 +221,15 @@ export const UpdateStorePopUp = (props)=>{
                 
                         
                     <div className="col-md-6">
-                        <label for="storeName" className="form-label">Store Name </label>
+                        <label htmlFor="storeName" className="form-label">Store Name </label>
                         <input type="text" className="form-control" id="storeName" onChange={(e)=> props.data.handleNameChange(e)} value={props.data.name != ""? props.data.name : props.data && props.data.SingleStore && props.data.SingleStore.getstore.name }  /> 
                     </div>
                     <div className="col-md-6">
-                        <label for="storeLink" className="form-label">Store Link </label>
+                        <label htmlFor="storeLink" className="form-label">Store Link </label>
                         <input type="text" className="form-control" id="storeLink" onChange={(e)=> props.data.handleUrlChange(e)} value={props.data.url != ""? props.data.url : props.data && props.data.SingleStore && props.data.SingleStore.getstore.url }  /> 
                     </div>
                     {/* <div className="col-md-12">
-                        <label for="storeLink" className="form-label">Categories </label>
+                        <label htmlFor="storeLink" className="form-label">Categories </label>
                         <select className="form-select" multiple aria-label="multiple select example" id="select-cat-type"  onChange={(e)=> props.data.handleCategoryIdsChange(e)} >
 
                             {/* collecting selected field and rendering them as selected */}
@@ -239,7 +249,7 @@ export const UpdateStorePopUp = (props)=>{
                         <small className="m-2">cmd/ctr + click to select multiple</small>
                     </div> */}
                     {/* <div className="col-md-6">
-                        <label for="storeLogo" className="form-label">Store Logo </label>
+                        <label htmlFor="storeLogo" className="form-label">Store Logo </label>
                         <input type="file" className="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)}  /> 
                     </div> */}
                     
@@ -281,11 +291,11 @@ export const UpdateCatStorePopUp = (props)=>{
                         
                     <div className="col-md-6">
                         {/* {console.log(props.data?.singleCategory)} */}
-                        {/* <p for="storeName" className="fs-3">{props.data?.singleCategory.getCategory.name}</p> */}
+                        {/* <p htmlFor="storeName" className="fs-3">{props.data?.singleCategory.getCategory.name}</p> */}
                     </div>
                     
                     <div className="col-md-12">
-                        <label for="storeLink" className="form-label">Stores </label>
+                        <label htmlFor="storeLink" className="form-label">Stores </label>
                         <select className="form-select" multiple aria-label="multiple select example" id="select-store-type"  onChange={(e)=> props.data.handleStoreIdsChange(e)} >
 
                             {/* collecting selected field and rendering them as selected */}
@@ -307,7 +317,7 @@ export const UpdateCatStorePopUp = (props)=>{
                         <small className="m-2">cmd/ctr + click to select multiple</small>
                     </div>
                     {/* <div className="col-md-6">
-                        <label for="storeLogo" className="form-label">Store Logo </label>
+                        <label htmlFor="storeLogo" className="form-label">Store Logo </label>
                         <input type="file" className="form-control" id="storeLogo" onChange={(e)=> props.data.handleLogoUrlChange(e)}  /> 
                     </div> */}
                     

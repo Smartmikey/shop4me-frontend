@@ -19,7 +19,7 @@ export const CategoryList = (props) =>{
                 {
                     data && data.getCategories && data.getCategories.map(item =>{ 
                         // console.log(item.name);
-                        return (<li key={item.id}  ><Link to={"./category/",item.slug} >{ item.name}</Link></li>)
+                        return (<li key={item.id}  ><Link to={`/category/${item.slug}`} >{ item.name}</Link></li>)
                     })
                 }
                  </ul>
